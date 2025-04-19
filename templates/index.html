@@ -1,0 +1,108 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Помощь студентам</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1em 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            background: #3498db;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+
+        .cta-buttons {
+            margin-top: 30px;
+        }
+
+        .cta-buttons a {
+            background: white;
+            color: #3498db;
+            text-decoration: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .cta-buttons a:hover {
+            background: #ecf0f1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Помощь студентам</h1>
+    <nav>
+        <a href="/login">Вход</a>
+        <a href="/register">Регистрация</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Найдите или предложите помощь студентам ВУЗов</h2>
+    <p>Специалисты и студенты находят друг друга здесь — просто, безопасно и удобно.</p>
+    <div class="cta-buttons">
+        <a href="/register">Я хочу помогать</a>
+        <a href="/register">Я ищу помощь</a>
+    </div>
+</section>
+
+<footer>
+    &copy; 2025 Помощь студентам. Все права защищены.
+</footer>
+
+</body>
+</html>
