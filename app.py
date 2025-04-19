@@ -1,43 +1,29 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///marketplace.db'
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///study_help.db'
 db = SQLAlchemy(app)
 
-# Models
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), nullable=False, unique=True)
-    password = db.Column(db.String(200), nullable=False)
-    role = db.Column(db.String(50), nullable=False)  # 'buyer' or 'seller'
-    specialty = db.Column(db.String(150))
-    field = db.Column(db.String(150))
-    documents = db.Column(db.Text)  # Comma-separated paths
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+    role = db.Column(db.String(10), nullable=False)  # 'buyer' or 'seller'
 
 class Offer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    title = db.Column(db.String(200))
-    description = db.Column(db.Text)
-    subject = db.Column(db.String(100))
-    price = db.Column(db.Float)
+    title = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-class Review(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    content = db.Column(db.Text)
-    rating = db.Column(db.Integer)
-
-# Routes
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+    offers = Offer.query.all()
+    return render_template('index.html', offers=offers)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -45,10 +31,7 @@ def register():
         username = request.form['username']
         password = generate_password_hash(request.form['password'])
         role = request.form['role']
-        specialty = request.form.get('specialty')
-        field = request.form.get('field')
-
-        user = User(username=username, password=password, role=role, specialty=specialty, field=field)
+        user = User(username=username, password=password, role=role)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('login'))
@@ -60,69 +43,61 @@ def login():
         user = User.query.filter_by(username=request.form['username']).first()
         if user and check_password_hash(user.password, request.form['password']):
             session['user_id'] = user.id
+            session['username'] = user.username
             session['role'] = user.role
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('home'))
     return render_template('login.html')
 
-@app.route('/dashboard')
-def dashboard():
-    user = User.query.get(session['user_id'])
-    if user.role == 'seller':
-        offers = Offer.query.filter_by(seller_id=user.id).all()
-        return render_template('seller_dashboard.html', user=user, offers=offers)
-    else:
-        offers = Offer.query.all()
-        return render_template('buyer_dashboard.html', offers=offers)
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
 
-@app.route('/offer/create', methods=['GET', 'POST'])
+@app.route('/create_offer', methods=['GET', 'POST'])
 def create_offer():
+    if 'user_id' not in session or session.get('role') != 'seller':
+        return redirect(url_for('login'))
     if request.method == 'POST':
         offer = Offer(
-            seller_id=session['user_id'],
             title=request.form['title'],
             description=request.form['description'],
-            subject=request.form['subject'],
-            price=request.form['price']
+            price=float(request.form['price']),
+            seller_id=session['user_id']
         )
         db.session.add(offer)
         db.session.commit()
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('home'))
     return render_template('create_offer.html')
 
+@app.route('/offer/<int:offer_id>')
+def offer_detail(offer_id):
+    offer = Offer.query.get_or_404(offer_id)
+    return render_template('offer_detail.html', offer=offer)
 
-@app.route('/review/<int:seller_id>', methods=['POST'])
-def leave_review(seller_id):
-    review = Review(
-        seller_id=seller_id,
-        buyer_id=session['user_id'],
-        content=request.form['content'],
-        rating=int(request.form['rating'])
-    )
-    db.session.add(review)
-    db.session.commit()
-    return redirect(url_for('dashboard'))
 
-@app.route('/upload_documents', methods=['POST'])
-def upload_documents():
-    user = User.query.get(session['user_id'])
-    files = request.files.getlist('documents')
-    filenames = []
-    for f in files:
-        path = os.path.join(app.config['UPLOAD_FOLDER'], f.filename)
-        f.save(path)
-        filenames.append(path)
-    user.documents = ','.join(filenames)
-    db.session.commit()
-    return redirect(url_for('dashboard'))
+@app.route('/faq')
+def faq():
+    return "FAQ"
 
-# Dummy payment handler
-@app.route('/pay/<int:offer_id>', methods=['POST'])
-def pay(offer_id):
-    offer = Offer.query.get(offer_id)
-    commission_rate = 0.1
-    seller_payment = offer.price * (1 - commission_rate)
-    # Logic to transfer funds would go here
-    return f"Paid {offer.price} to seller. Commission taken: {offer.price - seller_payment}"
+@app.route('/messenger')
+def messenger():
+    return "Messenger"
+
+@app.route('/profile')
+def profile():
+    return "Profile"
+
+@app.route('/chapter')
+def profile():
+    return "Chapter"
+
+@app.route('/buy')
+def profile():
+    return "Buy"
+
+@app.route('/Seller_profile')
+def profile():
+    return "Seller_profile"
 
 if __name__ == '__main__':
     with app.app_context():
