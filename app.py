@@ -11,7 +11,6 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
-    role = db.Column(db.String(10), nullable=False)  # 'buyer' or 'seller'
 
 class Offer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,8 +29,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = generate_password_hash(request.form['password'])
-        role = request.form['role']
-        user = User(username=username, password=password, role=role)
+        user = User(username=username, password=password)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('login'))
@@ -44,7 +42,6 @@ def login():
         if user and check_password_hash(user.password, request.form['password']):
             session['user_id'] = user.id
             session['username'] = user.username
-            session['role'] = user.role
             return redirect(url_for('home'))
     return render_template('login.html')
 
@@ -55,8 +52,6 @@ def logout():
 
 @app.route('/create_offer', methods=['GET', 'POST'])
 def create_offer():
-    if 'user_id' not in session or session.get('role') != 'seller':
-        return redirect(url_for('login'))
     if request.method == 'POST':
         offer = Offer(
             title=request.form['title'],
@@ -69,10 +64,30 @@ def create_offer():
         return redirect(url_for('home'))
     return render_template('create_offer.html')
 
-@app.route('/offer/<int:offer_id>')
-def offer_detail(offer_id):
-    offer = Offer.query.get_or_404(offer_id)
-    return render_template('offer_detail.html', offer=offer)
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+@app.route('/offer')
+def offers():
+    return render_template('offer.html')
+
+@app.route('/tema')
+def tema():
+    return render_template('tema.html')
+
+@app.route('/message')
+def message():
+    return render_template('message.html')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
+@app.route('/buys')
+def buys():
+    return render_template('buys.html')
 
 if __name__ == '__main__':
     with app.app_context():

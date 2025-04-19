@@ -1,9 +1,42 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Предложения</h1>
-<ul>
-    {% for offer in offers %}
-        <li><a href="{{ url_for('offer_detail', offer_id=offer.id) }}">{{ offer.title }}</a> — {{ offer.price }} руб.</li>
-    {% endfor %}
-</ul>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <div class="logo">StudyHub</div>
+    <nav>
+        <a href="#">Главная</a>
+        <a href="#">FAQ</a>
+        <a href="#">Вход</a>
+        <a href="#">Регистрация</a>
+    </nav>
+</header>
+
+<main>
+    <section class="info">
+        <p>Найди помощь по учёбе в нужной теме — быстро, удобно и эффективно.</p>
+    </section>
+
+    <section class="columns">
+        {% for section in sections %}
+            <div class="column">
+                <h3>{{ section.name }}</h3>
+                {% for topic in section.topics %}
+                    <div class="topic">{{ topic.name }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 StudyHub. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

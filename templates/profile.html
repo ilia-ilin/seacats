@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Профиль | Название сайта</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+      border-bottom: 1px solid #ccc;
+    }
+    header .left, header .right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .profile-container {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #ddd;
+    }
+    .rating {
+      font-size: 18px;
+    }
+    .offer-button {
+      margin: 20px;
+      text-align: center;
+    }
+    .offers {
+      margin: 0 20px 20px 20px;
+    }
+    .offer-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .reviews {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-top: 1px solid #ccc;
+    }
+    .review {
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 6px 12px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="left">
+    <strong>Название сайта</strong>
+    <button>Главная</button>
+    <button>FAQ</button>
+  </div>
+  <div class="right">
+    <button>💬</button>
+    <!-- Если не залогинен -->
+    <!-- <button>Вход</button>
+    <button>Регистрация</button> -->
+
+    <!-- Если залогинен -->
+    <button>Профиль</button>
+    <button>Выход</button>
+  </div>
+</header>
+
+<div class="profile-container">
+  <div class="avatar"></div>
+  <div class="rating">Рейтинг: ★★★★☆</div>
+</div>
+
+<!-- Если это твой профиль -->
+<div class="offer-button">
+  <button>Создать предложение</button>
+</div>
+
+<!-- Если это продавец -->
+<div class="offers">
+  <div class="offer-item">Предложение 1</div>
+  <div class="offer-item">Предложение 2</div>
+  <div class="offer-item">Предложение 3</div>
+  <div class="offer-item">Предложение 4</div>
+  <div class="offer-item">Предложение 5</div>
+  <div class="offer-item">и т.д.</div>
+</div>
+
+<div class="reviews">
+  <h3>Отзывы пользователей:</h3>
+  <div class="review">Пользователь A: Отличный продавец!</div>
+  <div class="review">Пользователь B: Всё прошло гладко.</div>
+  <div class="review">Пользователь C: Рекомендую!</div>
+</div>
+
+</body>
+</html>

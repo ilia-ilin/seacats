@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Сообщения | Название сайта</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+      border-bottom: 1px solid #ccc;
+    }
+    header .left, header .right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .chat-page {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+    .chat-list {
+      width: 250px;
+      border-right: 1px solid #ccc;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    .chat-item {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    .chat-item:hover {
+      background-color: #f5f5f5;
+    }
+    .chat-window {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+    .chat-header {
+      margin-bottom: 10px;
+    }
+    .chat-header h3 {
+      margin: 0;
+    }
+    .chat-header button {
+      margin-top: 5px;
+    }
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #fafafa;
+    }
+    .message {
+      margin-bottom: 8px;
+    }
+    .message.you {
+      text-align: right;
+      color: blue;
+    }
+    .message.them {
+      text-align: left;
+      color: green;
+    }
+    .send-box {
+      display: flex;
+      gap: 10px;
+    }
+    .send-box input {
+      flex: 1;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="left">
+    <strong>Название сайта</strong>
+    <button>Главная</button>
+    <button>FAQ</button>
+  </div>
+  <div class="right">
+    <button>💬</button>
+    <!-- Если не залогинен -->
+    <!-- <button>Вход</button>
+    <button>Регистрация</button> -->
+
+    <!-- Если залогинен -->
+    <button>Профиль</button>
+    <button>Выход</button>
+  </div>
+</header>
+
+<div class="chat-page">
+  <div class="chat-list">
+    <div class="chat-item">Покупатель Иван</div>
+    <div class="chat-item">Продавец Анна</div>
+    <div class="chat-item">Покупатель Сергей</div>
+    <!-- и т.д. -->
+  </div>
+
+  <div class="chat-window">
+    <div class="chat-header">
+      <h3>Продавец Анна</h3>
+      <button onclick="window.location.href='/offer/123'">Перейти к предложению</button>
+    </div>
+
+    <div class="messages">
+      <div class="message you">Здравствуйте, интересует ваше предложение.</div>
+      <div class="message them">Здравствуйте! Оно ещё актуально.</div>
+      <div class="message you">Можно уточнить детали?</div>
+    </div>
+
+    <div class="send-box">
+      <input type="text" placeholder="Введите сообщение...">
+      <button>Отправить</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

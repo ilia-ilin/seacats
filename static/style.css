@@ -22,3 +22,205 @@ input, textarea, select, button {
     border-radius: 5px;
     border: none;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #121212;
+    color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #1f1f1f;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    border-bottom: 1px solid #333;
+}
+
+header .logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #00eaff;
+}
+
+header nav a {
+    margin-left: 20px;
+    color: #f1f1f1;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: #00eaff;
+}
+
+main {
+    padding: 100px 30px 60px; /* отступ для шапки и футера */
+    flex: 1;
+}
+
+.info {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #ccc;
+}
+
+.columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.column {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    width: 280px;
+    box-shadow: 0 0 10px #000;
+}
+
+.column h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #00eaff;
+}
+
+.topic {
+    background-color: #2a2a2a;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.topic:hover {
+    background-color: #00eaff;
+    color: black;
+}
+
+footer {
+    background-color: #1f1f1f;
+    color: #999;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #333;
+    margin-top: auto;
+}
+
+.offer-main {
+    display: flex;
+    margin-top: 100px;
+    padding: 20px;
+    gap: 30px;
+}
+
+.offer-left {
+    flex: 2;
+}
+
+.messenger {
+    flex: 1;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.message {
+    background-color: #2a2a2a;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+form {
+    display: flex;
+    gap: 10px;
+}
+
+form input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+form button {
+    padding: 8px 12px;
+    background-color: #00eaff;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.seller-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.pay-button {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.pay-button button {
+    padding: 10px 20px;
+    background-color: #00eaff;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-offer {
+    margin-bottom: 20px;
+}
+
+.create-offer button {
+    background-color: #00eaff;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.other-offers ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}

@@ -1,10 +1,109 @@
-{% extends 'base.html' %}
-{% block content %}
-<h2>Создать предложение</h2>
-<form method="post">
-    <input name="title" placeholder="Название" required>
-    <textarea name="description" placeholder="Описание" required></textarea>
-    <input name="price" type="number" step="0.01" placeholder="Цена" required>
-    <button type="submit">Создать</button>
-</form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Создать предложение | Название сайта</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    header .left, header .right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .container {
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .form-section {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-section input, .form-section textarea {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    .form-section textarea {
+      height: 150px;
+      resize: vertical;
+    }
+
+    .price-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .price-section label {
+      font-weight: bold;
+    }
+
+    .price-section input {
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    button.submit {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="left">
+    <strong>Название сайта</strong>
+    <button>Главная</button>
+    <button>FAQ</button>
+  </div>
+  <div class="right">
+    <button>💬</button>
+    <!-- Если не залогинен -->
+    <!-- <button>Вход</button>
+    <button>Регистрация</button> -->
+
+    <!-- Если залогинен -->
+    <button>Профиль</button>
+    <button>Выход</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="form-section">
+    <input type="text" placeholder="Раздел (например, 'Прокат лодок')">
+    <input type="text" placeholder="Тема предложения (например, 'Сплав по реке Уфа')">
+    <textarea placeholder="Описание предложения..."></textarea>
+    <button class="submit">Опубликовать</button>
+  </div>
+  <div class="price-section">
+    <label for="price">Цена</label>
+    <input type="number" id="price" placeholder="₽">
+  </div>
+</div>
+
+</body>
+</html>
