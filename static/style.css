@@ -244,3 +244,297 @@ h1, h2 {
     color: #FF6F00;
     font-weight: bold;
 }
+
+/* Добавьте в static/style.css */
+.create-offer-btn {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.create-offer-btn:hover {
+    background-color: #45a049;
+}
+
+/* Основной стиль для страницы создания предложения */
+.create-offer-container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fefaf5;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.create-offer-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.offer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.form-group {
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.form-label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #FF6F00;
+    background-color: #fff;
+}
+
+.submit-btn {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #FF6F00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #ff8c1a;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #FF6F00;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #e65c00;
+}
+
+/* Основной контейнер страницы предложения */
+.offer-page-container {
+    width: 70%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.offer-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.offer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.offer-description,
+.offer-price,
+.offer-seller {
+    text-align: left;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.offer-description h2,
+.offer-price h2,
+.offer-seller h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.offer-description p,
+.offer-price p,
+.offer-seller p {
+    font-size: 16px;
+    color: #555;
+}
+
+.seller-link {
+    color: #FF6F00;
+    text-decoration: none;
+}
+
+.seller-link:hover {
+    text-decoration: underline;
+}
+
+/* Кнопки */
+.offer-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+}
+
+.chat-btn {
+    background-color: #FF6F00;
+    color: white;
+}
+
+.chat-btn:hover {
+    background-color: #e65c00;
+    transform: scale(1.05);
+}
+
+.buy-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.buy-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Общий стиль для страницы предложения */
+.offer-page-container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Заголовок предложения */
+.offer-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.offer-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.offer-price {
+    font-size: 24px;
+    font-weight: 600;
+    color: #FF6F00;
+    margin-top: 5px;
+}
+
+/* Основной контент предложения */
+.offer-main-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+/* Описание предложения */
+.offer-description {
+    width: 60%;
+}
+
+.offer-description h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.offer-description p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    text-align: justify;
+}
+
+/* Информация о продавце */
+.offer-seller {
+    width: 35%;
+    padding-left: 20px;
+    border-left: 2px solid #ddd;
+}
+
+.offer-seller h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.offer-seller p {
+    font-size: 16px;
+    color: #555;
+}
+
+.seller-link {
+    color: #FF6F00;
+    text-decoration: none;
+}
+
+.seller-link:hover {
+    text-decoration: underline;
+}
+
+/* Кнопки */
+.offer-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size:
+

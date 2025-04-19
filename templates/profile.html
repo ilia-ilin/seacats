@@ -1,9 +1,14 @@
+<!-- templates/profile.html -->
 {% extends 'base.html' %}
 
 {% block content %}
     <div class="profile-container">
         <h1>Профиль пользователя {{ user.username }}</h1>
         <h2>Мои предложения</h2>
+
+        <div>
+            <a href="{{ url_for('create_offer') }}" class="create-offer-btn">Создать новое объявление</a>
+        </div>
 
         {% if offers %}
             <div class="offers">
