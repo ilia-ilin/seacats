@@ -87,13 +87,21 @@ def messenger():
 def profile():
     return "Profile"
 
-@app.route('/chapter')
-def chapter():
-    return "Chapter"
+@app.route('/tema1')
+def tema1():
+    return render_template('tema.html')
 
-@app.route('/buy')
-def buy():
-    return "Buy"
+@app.route('/tema2')
+def tema2():
+    return render_template('tema2.html')
+
+@app.route('/tema3')
+def tema3():
+    return render_template('tema3.html')
+
+@app.route('/tema4')
+def tema4():
+    return render_template('tema4.html')
 
 @app.route('/Seller_profile')
 def sell():

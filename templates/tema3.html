@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Категория - Тема 3</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fefaf5;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin: 30px 0 20px;
+            color: #333;
+        }
+
+        .topics {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .topic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            text-decoration: none;
+            color: black;
+        }
+
+        .topic:hover {
+            transform: scale(1.05);
+        }
+
+        .topic.active {
+            border: 3px solid #FF6F00;
+        }
+
+        .offers {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .offer-card {
+            display: flex;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .seller-profile {
+            width: 20%;
+            background-color: #f3f3f3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            transition: background 0.3s;
+        }
+
+        .seller-profile:hover {
+            background-color: #e0e0e0;
+        }
+
+        .profile-circle {
+            width: 60px;
+            height: 60px;
+            background-color: #ccc;
+            border-radius: 50%;
+            line-height: 60px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .offer-content {
+            width: 80%;
+            padding: 20px;
+            text-decoration: none;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .offer-content:hover {
+            background-color: #fff7f0;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 16px;
+            color: #FF3D00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    Моя стандартная шапка
+</div>
+
+<h1 class="section-title">Тема 3</h1>
+
+<!--<a href="{{ url_for('profile') }}" class="seller-profile">-->
+
+<div class="topics">
+    <a href="{{ url_for('tema1') }}" class="topic">Тема 1</a>
+    <a href="{{ url_for('tema2') }}" class="topic">Тема 2</a>
+    <a href="{{ url_for('tema3') }}" class="topic active">Тема 3</a>
+    <a href="{{ url_for('tema4') }}" class="topic">Тема 4</a>
+</div>
+
+<div class="offers">
+    <!-- Пример карточки -->
+    <div class="offer-card">
+        <a href="profile.html" class="seller-profile">
+            <div class="profile-circle">P</div>
+            <div>Продавец 1</div>
+        </a>
+        <a href="product.html" class="offer-content">
+            <div class="product-title">Товар 1</div>
+            <div class="description">Это описание товара. Здесь можно подробно описать, что именно продается.</div>
+            <div class="price">₽ 1500</div>
+        </a>
+    </div>
+
+    <div class="offer-card">
+        <a href="profile.html" class="seller-profile">
+            <div class="profile-circle">P</div>
+            <div>Продавец 2</div>
+        </a>
+        <a href="product.html" class="offer-content">
+            <div class="product-title">Товар 2</div>
+            <div class="description">Это описание товара. Здесь можно подробно описать, что именно продается.</div>
+            <div class="price">₽ 2500</div>
+        </a>
+    </div>
+
+    <div class="offer-card">
+        <a href="profile.html" class="seller-profile">
+            <div class="profile-circle">P</div>
+            <div>Продавец 3</div>
+        </a>
+        <a href="product.html" class="offer-content">
+            <div class="product-title">Товар 3</div>
+            <div class="description">Это описание товара. Здесь можно подробно описать, что именно продается.</div>
+            <div class="price">₽ 3500</div>
+        </a>
+    </div>
+
+    <!-- Дополнительные карточки -->
+    <div class="offer-card">
+        <a href="profile.html" class="seller-profile">
+            <div class="profile-circle">P</div>
+            <div>Продавец 4</div>
+        </a>
+        <a href="product.html" class="offer-content">
+            <div class="product-title">Товар 4</div>
+            <div class="description">Описание товара 4.</div>
+            <div class="price">₽ 4500</div>
+        </a>
+    </div>
+
+    <div class="offer-card">
+        <a href="profile.html" class="seller-profile">
+            <div class="profile-circle">P</div>
+            <div>Продавец 5</div>
+        </a>
+        <a href="product.html" class="offer-content">
+            <div class="product-title">Товар 5</div>
+            <div class="description">Описание товара 5.</div>
+            <div class="price">₽ 5500</div>
+        </a>
+    </div>
+
+    <div class="offer-card">
+        <a href="profile.html" class="seller-profile">
+            <div class="profile-circle">P</div>
+            <div>Продавец 6</div>
+        </a>
+        <a href="product.html" class="offer-content">
+            <div class="product-title">Товар 6</div>
+            <div class="description">Описание товара 6.</div>
+            <div class="price">₽ 6500</div>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

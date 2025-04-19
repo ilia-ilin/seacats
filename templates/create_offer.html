@@ -1,10 +1,281 @@
-{% extends 'base.html' %}
-{% block content %}
-<h2>Создать предложение</h2>
-<form method="post">
-    <input name="title" placeholder="Название" required>
-    <textarea name="description" placeholder="Описание" required></textarea>
-    <input name="price" type="number" step="0.01" placeholder="Цена" required>
-    <button type="submit">Создать</button>
-</form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Добавление предложения / FunPay</title><link href="https://funpay.com/688/css/main.css" rel="stylesheet" media="all">
+<script src="https://funpay.com/503/js/bundle.js"></script>
+<script src="https://funpay.com/503/js/lots.min.js"></script>
+<script src="https://funpay.com/503/js/jquery-ui.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="alternate" hreflang="ru" href="https://funpay.com/lots/offerEdit?node=2411"><link rel="alternate" hreflang="uk" href="https://funpay.com/lots/offerEdit?node=2411"><link rel="alternate" hreflang="en" href="https://funpay.com/en/lots/offerEdit?node=2411"><link rel="alternate" hreflang="x-default" href="https://funpay.com/en/lots/offerEdit?node=2411"><script type="application/ld+json">[{"@context":"http:\/\/schema.org\/","@type":"WebSite","name":"FunPay","url":"https:\/\/funpay.com\/"}]</script><link rel="preload" href="/688/fonts/Graphik-Bold-Web.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/688/fonts/Graphik-Semibold-Web.woff2" as="font" type="font/woff2" crossorigin><link rel="manifest" href="/manifest.json">
+</head>
+<body class="with-corner-cd" data-app-data="{&quot;uploadOptions&quot;:{&quot;fileSizeMax&quot;:7340032,&quot;fileSizeMaxStr&quot;:&quot;7 МБ&quot;},&quot;locale&quot;:&quot;ru&quot;,&quot;csrf-token&quot;:&quot;dgx0ft2xis3h5k38&quot;,&quot;userId&quot;:291651,&quot;webpush&quot;:{&quot;app&quot;:&quot;C356D-32008&quot;}}">
+    <!--suppress ALL -->
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('consent', 'default', {"analytics_storage":"granted","ad_storage":"granted","ad_user_data":"granted","ad_personalization":"denied"});
+    gtag('config', 'AW-11153904331');
+
+    window.app.analytics.addEvents([{"event":"FunpayPageview","userId":"291651","clientId":"976847447.1743419292"}]);
+</script>
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TWG83B');</script>
+
+<script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        function initYM() {
+        ym(36956765, "init", {
+            clickmap: false,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: false,
+            ut: "noindex",
+            ecommerce: "dataLayer"
+        });
+    }
+        initYM();
+    </script>
+<noscript><div><img src="https://mc.yandex.ru/watch/36956765?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<div class="wrapper">
+    <div class="wrapper-content">
+                <div class="corner-cd-container"><div class="corner-cd"><img src="https://sfunpay.com/s/file/cz/1a/hamster_kombat.cz1azjmqr1.jpg" alt=""></div></div>
+                        <header id="header">
+            <div class="container">
+                <div id="global-origin"></div>
+                <nav class="navbar navbar-default">
+                    <div class="hide-navbar"></div>
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                                                            <button type="button" class="collapsed navbar-toggle navbar-toggle-logged" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                                    <span class="user-link-photo"><img src="/img/layout/avatar.png" alt=""></span>
+                                    <span class="caret"></span>
+                                </button>
+                                                                    <a href="https://funpay.com/chat/" class="navbar-xs-icon icon-chat">
+                                        <svg viewBox="0 0 26 26"><circle cx="13" cy="13" r="12"/><polygon points="26 26, 12 20, 20 12"/></svg>
+                                        <span></span>
+                                    </a>
+                                                                                        <a href="https://funpay.com/" class="navbar-brand">
+                                                                    <img src="/img/layout/logo-funpay-white.svg" alt="FunPay" class="logo-white"/>
+                                                                <img src="/img/layout/logo-funpay.svg" alt="FunPay" class="logo-color"/>
+                            </a>
+                            <form action="https://funpay.com/games/promoFilter" method="post" class="navbar-form navbar-left dropdown promo-games-filter">
+                                <div class="form-group">
+                                    <input type="text" name="query" class="form-control dropdown-toggle" data-toggle="dropdown" role="searchbox" placeholder="Поиск по 676 играм" autocomplete="off"/>
+                                    <div class="dropdown-menu dropdown-autocomplete hidden"></div>
+                                </div>
+                                <button type="submit" class="btn btn-link"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="nav-container">
+                            <div class="collapse navbar-collapse no-transition" id="navbar">
+                                <ul class="nav navbar-nav">
+                                                                                <li class="visible-xs visible-sm">
+        <a href="https://funpay.com/users/291651/" class="user-link-dropdown">
+            <div class="user-link-name">ddjj223</div>
+            <div class="user-link-desc">Профиль</div>
+        </a>
+    </li>                                                                                                                <li class="dropdown"><a href="https://funpay.com/" class="menu-item-info dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Помощь <span class="caret"></span></a><ul class="dropdown-menu"><li><a href="https://funpay.com/trade/info" class="menu-item-trade_info">Правила</a></li>
+<li><a href="https://funpay.freshdesk.com/ru-RU/support/home" class="menu-item-support" target="_blank">Центр помощи</a></li>
+                                    <li><a href="https://funpay.freshdesk.com/ru-RU/support/tickets/new" class="menu-item-request" target="_blank">Отправить запрос</a></li>
+<li><a href="https://funpay.freshdesk.com/ru-RU/support/tickets" class="menu-item-requests" target="_blank">Мои запросы</a></li></ul></li>                                                                            <li><a href="https://forms.gle/PNULY9gcB7QGvtW67" class="menu-item-resellers" target="_blank">Wholesale</a></li>                                                                    </ul>
+                                <ul class="nav navbar-nav navbar-right logged">
+                                                                            <li><a href="https://funpay.com/orders/" class="menu-item-orders">Покупки <span class="badge badge-orders hidden">0</span></a></li>                                                                            <li><a href="https://funpay.com/orders/trade" class="menu-item-trade">Продажи <span class="badge badge-trade hidden">0</span></a></li>                                                                            <li><a href="https://funpay.com/chat/" class="menu-item-chat">Сообщения <span class="badge badge-chat hidden">0</span></a></li>                                                                            <li><a href="https://funpay.com/account/balance" class="menu-item-balance">Финансы</a></li>                                                                                                                <li class="dropdown hidden-sm hidden-xs">
+                                            <a href="javascript:void(0)" class="dropdown-toggle user-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                <div class="user-link-photo"><img src="/img/layout/avatar.png" alt=""/></div>
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                    <li>
+        <a href="https://funpay.com/users/291651/" class="user-link-dropdown">
+            <div class="user-link-name">ddjj223</div>
+            <div class="user-link-desc">Профиль</div>
+        </a>
+    </li>                                                <li><a href="https://funpay.com/account/settings" class="menu-item-settings">Настройки</a></li><li class="dropdown">
+    <a href="javascript:void(0)" class="dropdown-toggle menu-item-langs" data-toggle="dropdown">
+        По-русски <i class="menu-icon menu-icon-lang-ru"></i> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+                    <li>
+                <a href="https://funpay.com/lots/offerEdit?node=2411&amp;setlocale=en" class="menu-item-lang">
+                    English <i class="menu-icon menu-icon-lang-en"></i>
+                </a>
+            </li>
+            </ul>
+</li><li class="dropdown">
+    <a href="javascript:void(0)" class="dropdown-toggle menu-item-currencies" data-toggle="dropdown">
+        Рубли <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+                    <li>
+                <a href="javascript:void(0)" data-cy="usd" class="user-cy-switcher menu-item-currency">
+                    Доллары                </a>
+            </li>
+                    <li>
+                <a href="javascript:void(0)" data-cy="eur" class="user-cy-switcher menu-item-currency">
+                    Евро                </a>
+            </li>
+            </ul>
+</li><li><a href="https://funpay.com/account/logout?token=35aa48961d80c5d2" class="menu-item-logout">Выйти</a></li>                                            </ul>
+                                        </li>
+                                        <li class="visible-xs visible-sm"><a href="https://funpay.com/account/settings" class="menu-item-settings">Настройки</a></li><li class="visible-xs visible-sm dropdown">
+                                        <a href="javascript:void(0)" class="dropdown-toggle menu-item-langs" data-toggle="dropdown">
+        По-русски <i class="menu-icon menu-icon-lang-ru"></i> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+                    <li>
+                <a href="https://funpay.com/lots/offerEdit?node=2411&amp;setlocale=en" class="menu-item-lang">
+                    English <i class="menu-icon menu-icon-lang-en"></i>
+                </a>
+            </li>
+            </ul>
+</li><li class="visible-xs visible-sm dropdown">
+    <a href="javascript:void(0)" class="dropdown-toggle menu-item-currencies" data-toggle="dropdown">
+        Рубли <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+                    <li>
+                <a href="javascript:void(0)" data-cy="usd" class="user-cy-switcher menu-item-currency">
+                    Доллары                </a>
+            </li>
+                    <li>
+                <a href="javascript:void(0)" data-cy="eur" class="user-cy-switcher menu-item-currency">
+                    Евро                </a>
+            </li>
+            </ul>
+</li><li class="visible-xs visible-sm"><a href="https://funpay.com/account/logout?token=35aa48961d80c5d2" class="menu-item-logout">Выйти</a></li>                                                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                                    <div id="chat-notification" class="hidden" data-message="0">
+                        <audio class="loud"><source src="/audio/chat_loud.mp3" type="audio/mpeg"></audio>
+                        <audio class="quiet"><source src="/audio/chat_quiet.mp3" type="audio/mpeg"></audio>
+                    </div>
+                                                                    <div id="live-counters" class="hidden" data-orders="tx5tk4wx" data-chat="bqapyeyl"></div>
+                                                </div>
+        </header>
+
+        <section id="content-body">
+            <div class="search-fade"></div>
+                                                <div id="content" class="content-lots content-lots-offeredit"><div class="container">
+    <div class="row">
+        <div class="col-md-2 col-sm-3">
+    <div class="back-link">
+        <a href="https://funpay.com/lots/2411/trade" class="js-back-link"><i class="fa fa-chevron-left"></i><span class="inside">Назад</span></a>
+    </div>
+</div>
+        <div class="col-md-10 col-sm-9">
+                        <div class="page-content">
+                <h1 class="page-header page-header-no-hr">Добавление предложения</h1>
+                                    <form action="https://funpay.com/lots/offerSave" method="post" class="form-offer-editor">
+    <input type="hidden" name="csrf_token" value="dgx0ft2xis3h5k38">
+    <input type="hidden" name="form_created_at" value="1745072966">
+    <input type="hidden" name="offer_id" value="0">
+    <input type="hidden" name="node_id" value="2411">
+    <input type="hidden" name="location" value="">
+    <input type="hidden" name="deleted" value="">
+
+    <div class="lot-fields" data-fields="[{&quot;id&quot;:&quot;summary&quot;,&quot;type&quot;:2,&quot;conditions&quot;:[]},{&quot;id&quot;:&quot;desc&quot;,&quot;type&quot;:3,&quot;conditions&quot;:[]},{&quot;id&quot;:&quot;payment_msg&quot;,&quot;type&quot;:3,&quot;conditions&quot;:[]},{&quot;id&quot;:&quot;images&quot;,&quot;type&quot;:6,&quot;conditions&quot;:[]}]">
+
+                                <div class="lot-fields-multilingual">
+                <ul class="nav nav-tabs">
+                                            <li class="js-locale-switcher active" data-locale="ru">
+                            <a href="javascript:void(0)">По-русски</a>
+                        </li>
+                                            <li class="js-locale-switcher" data-locale="en">
+                            <a href="javascript:void(0)">По-английски</a>
+                        </li>
+                                                        </ul>
+                                                                                                        <div class="form-group lot-field bg-light-color modal-custom-bg-block modal-custom-bg-block-top" data-locale="ru" data-id="summary">
+                            <label class="control-label">Краткое описание</label>
+<input type="text" class="form-control lot-field-input" name="fields[summary][ru]" value="">
+    <p class="help-block">Отображается прямо в таблице</p>                        </div>
+                                                                    <div class="form-group lot-field bg-light-color modal-custom-bg-block hidden" data-locale="en" data-id="summary">
+                            <label class="control-label">Short description</label>
+<input type="text" class="form-control lot-field-input" name="fields[summary][en]" value="">
+    <p class="help-block">Appears directly on the table</p>                        </div>
+                                                                                                                            <div class="form-group lot-field bg-light-color modal-custom-bg-block" data-locale="ru" data-id="desc">
+                            <label class="control-label">Подробное описание</label>
+<textarea class="form-control lot-field-input" name="fields[desc][ru]" rows="7"></textarea>
+    <p class="help-block">Можно не заполнять</p>                        </div>
+                                                                    <div class="form-group lot-field bg-light-color modal-custom-bg-block hidden" data-locale="en" data-id="desc">
+                            <label class="control-label">Detailed description</label>
+<textarea class="form-control lot-field-input" name="fields[desc][en]" rows="7"></textarea>
+    <p class="help-block">Optional</p>                        </div>
+                                                                                                                            <div class="form-group lot-field bg-light-color modal-custom-bg-block" data-locale="ru" data-id="payment_msg">
+                            <label class="control-label">Сообщение покупателю после оплаты</label>
+<textarea class="form-control lot-field-input" name="fields[payment_msg][ru]" rows="7"></textarea>
+    <p class="help-block">Можно не заполнять. Будет отправлено каждому покупателю.</p>                        </div>
+                                                                    <div class="form-group lot-field bg-light-color modal-custom-bg-block hidden" data-locale="en" data-id="payment_msg">
+                            <label class="control-label">Message to the buyer after payment</label>
+<textarea class="form-control lot-field-input" name="fields[payment_msg][en]" rows="7"></textarea>
+    <p class="help-block">Optional. Will be sent to each buyer.</p>                        </div>
+                                                </div>
+
+                    <div class="form-group lot-field" data-id="images"><label class="control-label">Картинки</label>
+<input type="hidden" class="lot-field-input" name="fields[images]" value="">
+<div class="attachments-box">
+    <ul class="attachments-list">
+                <li class="attachments-item attachments-new"><i class="fas fa-camera"></i></li>
+    </ul>
+</div></div>            </div>
+
+    <div class="form-group has-feedback w-200px">
+        <label class="control-label">Цена</label>
+        <input type="text" class="form-control" name="price" value="" inputmode="decimal" autocomplete="off">
+        <span class="form-control-feedback">₽</span>
+    </div>
+
+
+    <div class="form-group js-calc-table hidden">
+        <label>Цена для покупателей</label>
+        <table class="table-buyers-prices">
+            <tbody class="js-calc-table-body">
+                        </tbody>
+        </table>
+    </div>
+                                            <div class="form-group">
+        <div class="checkbox"><label><input type="checkbox" name="active" checked><i></i>Активное</label></div>                    <input type="hidden" name="deactivate_after_sale" value="">
+            <div class="checkbox"><label><input type="checkbox" name="deactivate_after_sale" checked><i></i>Деактивировать после продажи</label></div>            </div>
+
+    <div class="margin-top">
+        <button type="submit" class="btn btn-primary btn-block js-btn-save">Сохранить</button>
+            </div>
+</form>                            </div>
+        </div>
+    </div>
+</div></div>        </section>
+    </div>
+
+                    <div class="wrapper-footer">
+            <div class="container">
+                <footer id="footer">
+                    <div class="footer-block footer-block-strings">
+                        <span>&copy; 2015&ndash;2025 FunPay</span>
+                        <a href="https://funpay.com/pages/privacyPolicy">Политика конфиденциальности</a>                        <a href="https://funpay.com/pages/cookiePolicy">Политика cookie</a>                                                <a href="https://funpay.com/contacts.html" target="_blank" rel="nofollow">Отправить запрос</a>                    </div>
+                    <div class="footer-block footer-block-social">
+                        <a class="btn btn-gray btn-round" href="https://t.me/+BBT_WNGd1FMxZDdi" target="_blank" rel="nofollow">
+                            <svg width="25" height="20"><use xlink:href="/2/img/layout/sprites.svg#social-logo-telegram"></use></svg>                        </a>
+                                                    <a class="btn btn-gray btn-round" href="https://www.youtube.com/c/funpayofficial" target="_blank" rel="nofollow"><i class="fab fa-youtube"></i></a>
+                                                    <a class="btn btn-gray btn-round" href="https://vk.com/funpay" target="_blank" rel="nofollow"><i class="fab fa-vk"></i></a>
+                                            </div>
+                    <div class="footer-block footer-block-als">
+                        <img src="/img/layout/als-logo.svg" alt="">
+                        <div>Задизайнено<br>в <a href="https://www.artlebedev.ru/funpay/" target="_blank">Студии Артемия<br>Лебедева</a></div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
