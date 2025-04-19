@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Предложение: {{ offer.title }}</h1>
-    <div class="offer-details">
-        <p>{{ offer.description }}</p>
-        <p>Цена: ₽ {{ offer.price }}</p>
-        <p>Продавец: <a href="{{ url_for('profile') }}">{{ offer.seller.username }}</a></p>
+    <div class="offer-page-container">
+        <h1 class="offer-title">{{ offer.title }}</h1>
+        <div class="offer-details">
+            <div class="offer-description">
+                <h2>Описание товара</h2>
+                <p>{{ offer.description }}</p>
+            </div>
+            <div class="offer-price">
+                <h2>Цена</h2>
+                <p>₽ {{ offer.price }}</p>
+            </div>
+            <div class="offer-seller">
+                <h2>Продавец</h2>
+                <p><a href="{{ url_for('profile') }}" class="seller-link">{{ offer.seller.username }}</a></p>
+            </div>
+            <div class="offer-buttons">
+                <a href="{{ url_for('offer', offer_id=offer.id) }}" class="btn chat-btn">Написать сообщение</a>
+                <a href="#" class="btn buy-btn">Купить</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

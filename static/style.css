@@ -102,3 +102,145 @@ button {
     cursor: pointer;
     margin-top: 10px;
 }
+/* Общие стили для страницы предложения */
+.offer-page-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+.offer-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.offer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 18px;
+}
+
+.offer-description, .offer-price, .offer-seller {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.offer-description h2, .offer-price h2, .offer-seller h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #FF6F00;
+}
+
+.offer-price p, .offer-seller p {
+    font-size: 20px;
+    color: #333;
+}
+
+.seller-link {
+    font-weight: bold;
+    color: #FF6F00;
+    text-decoration: none;
+}
+
+.seller-link:hover {
+    text-decoration: underline;
+}
+
+.offer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    padding: 12px 20px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    color: white;
+}
+
+.chat-btn {
+    background-color: #FF6F00;
+}
+
+.chat-btn:hover {
+    background-color: #e65c00;
+}
+
+.buy-btn {
+    background-color: #4CAF50;
+}
+
+.buy-btn:hover {
+    background-color: #45a049;
+}
+/* Стили для профиля */
+.profile-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.offers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+.offer-card {
+    width: 45%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.offer-card:hover {
+    transform: scale(1.05);
+}
+
+.offer-content {
+    text-decoration: none;
+    color: #333;
+}
+
+.product-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 16px;
+    color: #FF6F00;
+    font-weight: bold;
+}

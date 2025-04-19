@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Профиль {{ user.username }}</h1>
-    <h2>Мои предложения</h2>
-    <div class="offers">
-        {% for offer in offers %}
-            <div class="offer-card">
-                <a href="{{ url_for('offer', offer_id=offer.id) }}" class="offer-content">
-                    <div class="product-title">{{ offer.title }}</div>
-                    <div class="description">{{ offer.description }}</div>
-                    <div class="price">₽ {{ offer.price }}</div>
-                </a>
+    <div class="profile-container">
+        <h1>Профиль пользователя {{ user.username }}</h1>
+        <h2>Мои предложения</h2>
+
+        {% if offers %}
+            <div class="offers">
+                {% for offer in offers %}
+                    <div class="offer-card">
+                        <a href="{{ url_for('offer', offer_id=offer.id) }}" class="offer-content">
+                            <div class="product-title">{{ offer.title }}</div>
+                            <div class="description">{{ offer.description }}</div>
+                            <div class="price">₽ {{ offer.price }}</div>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        {% else %}
+            <p>У вас еще нет предложений.</p>
+        {% endif %}
     </div>
 {% endblock %}

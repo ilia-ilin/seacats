@@ -67,9 +67,10 @@ def create_offer():
 
 @app.route('/profile')
 def profile():
-    user = User.query.get(session['user_id'])
-    offers = Offer.query.filter_by(seller_id=session['user_id']).all()
+    user = User.query.filter_by(id=session['user_id']).first()
+    offers = Offer.query.filter_by(seller_id=user.id).all()  # Получаем все предложения текущего пользователя
     return render_template('profile.html', user=user, offers=offers)
+
 
 @app.route('/offer/<int:offer_id>')
 def offer(offer_id):
