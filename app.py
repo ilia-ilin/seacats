@@ -11,6 +11,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
+    offers = db.relationship('Offer', backref='seller', lazy=True)  # связь с предложениями
 
 class Offer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -64,18 +65,16 @@ def create_offer():
         return redirect(url_for('home'))
     return render_template('create_offer.html')
 
-
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    user = User.query.get(session['user_id'])
+    offers = Offer.query.filter_by(seller_id=session['user_id']).all()
+    return render_template('profile.html', user=user, offers=offers)
 
-@app.route('/offer')
-def offers():
-    return render_template('offer.html')
-
-@app.route('/tema')
-def tema():
-    return render_template('tema.html')
+@app.route('/offer/<int:offer_id>')
+def offer(offer_id):
+    offer = Offer.query.get_or_404(offer_id)
+    return render_template('offer.html', offer=offer)
 
 @app.route('/message')
 def message():
@@ -84,10 +83,6 @@ def message():
 @app.route('/faq')
 def faq():
     return render_template('faq.html')
-
-@app.route('/buys')
-def buys():
-    return render_template('buys.html')
 
 if __name__ == '__main__':
     with app.app_context():

@@ -1,63 +1,6 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Study Help</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/">Главная</a>
-            <a href="/faq">FAQ</a>  <!-- Добавленная ссылка -->
-            {% if 'username' in session %}
-                <span>{{ session.username }} ({{ session.role }})</span>
-                {% if session.role == 'seller' %}
-                    <a href="/create_offer">Создать предложение</a>
-                {% endif %}
-                <a href="/logout">Выход</a>
-            {% else %}
-                <a href="/login">Вход</a>
-                <a href="/register">Регистрация</a>
-            {% endif %}
-        </nav>
-    </header>
-    <main>
-        <div class="faq-container">
-            <h2>Часто задаваемые вопросы (FAQ)</h2>
+{% extends 'base.html' %}
 
-            <div class="faq-item">
-                <h3>Как зарегистрироваться?</h3>
-                <p>Для регистрации перейдите в раздел "Регистрация" и заполните форму данными:</p>
-                <ul>
-                    <li>Имя пользователя</li>
-                    <li>Пароль</li>
-                    <li>Email</li>
-                    <li>Роль (покупатель или продавец)</li>
-                </ul>
-            </div>
-
-            <div class="faq-item">
-                <h3>Как создать предложение?</h3>
-                <p>Для создания предложения:</p>
-                <ol>
-                    <li>Авторизуйтесь как продавец</li>
-                    <li>Перейдите в раздел "Создать предложение"</li>
-                    <li>Заполните все поля формы</li>
-                    <li>Нажмите кнопку "Создать"</li>
-                </ol>
-            </div>
-
-            <div class="faq-item">
-                <h3>Как происходит оплата?</h3>
-                <p>Мы используем безопасные платежные системы. Доступные способы оплаты:</p>
-                <ul>
-                    <li>Банковские карты (Visa/Mastercard)</li>
-                    <li>Электронные кошельки</li>
-                    <li>Криптовалюты</li>
-                </ul>
-            </div>
-        </div>
-    </main>
-</body>
-</html>
+{% block content %}
+<h1>FAQ</h1>
+<p>Здесь будут ответы на часто задаваемые вопросы.</p>
+{% endblock %}

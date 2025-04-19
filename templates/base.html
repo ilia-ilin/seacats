@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+    <div class="header">
+        <div>Название сайта</div>
+        <div class="header-buttons">
+            <a href="{{ url_for('home') }}">Главная</a>
+            <a href="{{ url_for('faq') }}">FAQ</a>
+            {% if 'username' in session %}
+                <a href="{{ url_for('profile') }}">Профиль</a>
+                <a href="{{ url_for('logout') }}">Выход</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Вход</a>
+                <a href="{{ url_for('register') }}">Регистрация</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
