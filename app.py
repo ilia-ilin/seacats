@@ -88,15 +88,15 @@ def profile():
     return "Profile"
 
 @app.route('/chapter')
-def profile():
+def chapter():
     return "Chapter"
 
 @app.route('/buy')
-def profile():
+def buy():
     return "Buy"
 
 @app.route('/Seller_profile')
-def profile():
+def sell():
     return "Seller_profile"
 
 if __name__ == '__main__':
