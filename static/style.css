@@ -61,3 +61,44 @@ body {
     color: white;
     margin-bottom: 5px;
 }
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f4f4f9;
+    width: 70%;
+}
+
+.message-sent {
+    align-self: flex-end;
+    background-color: #e0f7fa;
+}
+
+.message-received {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #FF3D00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
