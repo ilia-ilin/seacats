@@ -1,3 +1,5 @@
+import sqlite3
+
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -87,25 +89,37 @@ def messenger():
 def profile():
     return "Profile"
 
+
+def get_offers_by_tema(tema_number):
+    conn = sqlite3.connect('offers.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM offers WHERE tema = ?", (tema_number,))
+    offers = cursor.fetchall()
+    conn.close()
+    return offers
+
+@app.route('/')
 @app.route('/tema1')
 def tema1():
-    return render_template('tema.html')
+    offers = get_offers_by_tema(1)
+    return render_template('tema.html', tema_number=1, offers=offers)
 
 @app.route('/tema2')
 def tema2():
-    return render_template('tema2.html')
+    offers = get_offers_by_tema(2)
+    return render_template('tema.html', tema_number=2, offers=offers)
 
 @app.route('/tema3')
 def tema3():
-    return render_template('tema3.html')
+    offers = get_offers_by_tema(3)
+    return render_template('tema.html', tema_number=3, offers=offers)
 
 @app.route('/tema4')
 def tema4():
-    return render_template('tema4.html')
+    offers = get_offers_by_tema(4)
+    return render_template('tema.html', tema_number=4, offers=offers)
 
-@app.route('/Seller_profile')
-def sell():
-    return "Seller_profile"
 
 if __name__ == '__main__':
     with app.app_context():

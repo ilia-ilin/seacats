@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Категория - Тема 1</title>
+    <title>Категория - Тема {{ tema_number }}</title>
     <style>
         body {
             margin: 0;
@@ -139,90 +139,29 @@
     Моя стандартная шапка
 </div>
 
-<h1 class="section-title">Тема 1</h1>
-
+<h1 class="section-title">Тема {{ tema_number }}</h1>
 
 <div class="topics">
-    <a href="{{ url_for('tema1') }}" class="topic active">Тема 1</a>
-    <a href="{{ url_for('tema2') }}" class="topic">Тема 2</a>
-    <a href="{{ url_for('tema3') }}" class="topic">Тема 3</a>
-    <a href="{{ url_for('tema4') }}" class="topic">Тема 4</a>
+    <a href="{{ url_for('tema1') }}" class="topic {% if tema_number == 1 %}active{% endif %}">Тема 1</a>
+    <a href="{{ url_for('tema2') }}" class="topic {% if tema_number == 2 %}active{% endif %}">Тема 2</a>
+    <a href="{{ url_for('tema3') }}" class="topic {% if tema_number == 3 %}active{% endif %}">Тема 3</a>
+    <a href="{{ url_for('tema4') }}" class="topic {% if tema_number == 4 %}active{% endif %}">Тема 4</a>
 </div>
 
 <div class="offers">
-    <!-- Пример карточки -->
+    {% for offer in offers %}
     <div class="offer-card">
         <a href="profile.html" class="seller-profile">
-            <div class="profile-circle">P</div>
-            <div>Продавец 1</div>
+            <div class="profile-circle">{{ offer.seller[0] | upper }}</div>
+            <div>{{ offer.seller }}</div>
         </a>
         <a href="product.html" class="offer-content">
-            <div class="product-title">Товар 1</div>
-            <div class="description">Это описание товара. Здесь можно подробно описать, что именно продается.</div>
-            <div class="price">₽ 1500</div>
+            <div class="product-title">{{ offer.product }}</div>
+            <div class="description">{{ offer.description }}</div>
+            <div class="price">₽ {{ offer.price }}</div>
         </a>
     </div>
-
-    <div class="offer-card">
-        <a href="profile.html" class="seller-profile">
-            <div class="profile-circle">P</div>
-            <div>Продавец 2</div>
-        </a>
-        <a href="product.html" class="offer-content">
-            <div class="product-title">Товар 2</div>
-            <div class="description">Это описание товара. Здесь можно подробно описать, что именно продается.</div>
-            <div class="price">₽ 2500</div>
-        </a>
-    </div>
-
-    <div class="offer-card">
-        <a href="profile.html" class="seller-profile">
-            <div class="profile-circle">P</div>
-            <div>Продавец 3</div>
-        </a>
-        <a href="product.html" class="offer-content">
-            <div class="product-title">Товар 3</div>
-            <div class="description">Это описание товара. Здесь можно подробно описать, что именно продается.</div>
-            <div class="price">₽ 3500</div>
-        </a>
-    </div>
-
-    <!-- Дополнительные карточки -->
-    <div class="offer-card">
-        <a href="profile.html" class="seller-profile">
-            <div class="profile-circle">P</div>
-            <div>Продавец 4</div>
-        </a>
-        <a href="product.html" class="offer-content">
-            <div class="product-title">Товар 4</div>
-            <div class="description">Описание товара 4.</div>
-            <div class="price">₽ 4500</div>
-        </a>
-    </div>
-
-    <div class="offer-card">
-        <a href="profile.html" class="seller-profile">
-            <div class="profile-circle">P</div>
-            <div>Продавец 5</div>
-        </a>
-        <a href="product.html" class="offer-content">
-            <div class="product-title">Товар 5</div>
-            <div class="description">Описание товара 5.</div>
-            <div class="price">₽ 5500</div>
-        </a>
-    </div>
-
-    <div class="offer-card">
-        <a href="profile.html" class="seller-profile">
-            <div class="profile-circle">P</div>
-            <div>Продавец 6</div>
-        </a>
-        <a href="product.html" class="offer-content">
-            <div class="product-title">Товар 6</div>
-            <div class="description">Описание товара 6.</div>
-            <div class="price">₽ 6500</div>
-        </a>
-    </div>
+    {% endfor %}
 </div>
 
 </body>
