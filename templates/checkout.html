@@ -3,47 +3,6 @@
 {% block content %}
 <div class="container mt-5">
     {% if offer %}
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Оформление заказа</h5>
-                </div>
-                <div class="card-body">
-                    <h4>{{ offer.title }}</h4>
-                    <p class="text-muted">Цена: <strong>₽ {{ offer.price }}</strong></p>
-
-                    {% if offer.seller %}
-                    <p>Продавец:
-                        <a href="{{ url_for('profile', user_id=offer.seller.id) }}" class="text-decoration-none">
-                            {{ offer.seller.username }}
-                        </a>
-                    </p>
-                    {% endif %}
-
-                    <form action="{{ url_for('checkout', offer_id=offer.id) }}" method="post">
-                        <div class="mb-3">
-                            <label for="payment_method" class="form-label">Выберите способ оплаты</label>
-                            <select class="form-select" id="payment_method" name="payment_method" required>
-                                <option value="credit_card">Кредитная карта</option>
-                                <option value="paypal">PayPal</option>
-                                <option value="bank_transfer">Банковский перевод</option>
-                                <!-- Можно добавить другие способы оплаты -->
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="notes" class="form-label">Комментарий к заказу (необязательно)</label>
-                            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-success w-100">Создать заказ</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="create-offer-container mx-auto p-4 shadow rounded bg-white" style="max-width: 600px;">
         <h2 class="text-center mb-4">Оформление заказа</h2>
         <form method="POST">
@@ -51,7 +10,30 @@
             <h4>{{ offer.title }}</h4>
             <p class="price">Цена: ₽{{ "%.2f"|format(offer.price) }}</p>
 
-            <button type="submit" class="btn btn-primary w-100">Создать предложение</button>
+            {% if offer.seller %}
+            <a href="{{ url_for('profile', user_id=offer.seller.id) }}" class="seller">
+                <span class="avatar">{{ offer.seller.username[0]|upper }}</span>
+                {{ offer.seller.username }}
+            </a>
+            {% endif %}
+
+            <form action="{{ url_for('checkout', offer_id=offer.id) }}" method="post">
+                <div class="mb-3">
+                    <label for="payment_method" class="form-label">Выберите способ оплаты</label>
+                    <select class="form-select" id="payment_method" name="payment_method" required>
+                        <option value="credit_card">Кредитная карта</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="bank_transfer">Банковский перевод</option>
+                        <!-- Можно добавить другие способы оплаты -->
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Комментарий к заказу (необязательно):</label>
+                    <textarea id="description" name="description" class="form-control" rows="4"></textarea>
+                </div>
+            </form>
+
+            <button type="submit" class="btn btn-primary w-100">Создать заказ</button>
         </form>
 
         <div class="text-center mt-3">
