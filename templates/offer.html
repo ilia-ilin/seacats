@@ -62,9 +62,32 @@
         font-size: 0.9rem;
         transition: background-color 0.3s, transform 0.1s;
     }
+
     /* Цвет кнопки "Отправить" при наведении */
     .chat-card button:hover {
     background-color: #b49b91; /* Одинаковый цвет для наведения */
+    }
+
+    /* Стили для кнопки "Войти, чтобы купить" */
+    .btn-primary {
+        background-color: #007bff; /* Синий цвет */
+        border: none;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3; /* Темный синий при наведении */
+        transform: translateY(-2px); /* Легкое поднятие кнопки */
+    }
+
+    .btn-primary:focus {
+        outline: none;
     }
 
     /* Стили для левой части */
@@ -129,9 +152,10 @@
         border-radius: 25px;
         transition: all 0.3s ease;
         text-decoration: none;
-        border: none;
+        border: 4px solid #eee;
         width: 100%; /* Растягиваем кнопку на всю ширину */
         text-align: center;
+
     }
 
     .btn-buy:hover {
@@ -190,7 +214,9 @@
                             <a href="{{ url_for('checkout', offer_id=offer.id) }}" class="btn-buy">Купить</a>
                         {% endif %}
                     {% else %}
-                        <a href="{{ url_for('login') }}" class="btn btn-primary rounded-pill">Войти, чтобы купить</a>
+                        <div class="offer-actions">
+                            <a href="{{ url_for('login') }}" class="btn-buy">Войти, чтобы купить</a>
+                        </div>
                     {% endif %}
                 </div>
             </div>
@@ -226,7 +252,31 @@
                     </div>
                 </div>
                 {% elif not current_user.is_authenticated %}
-                    <p><a href="{{ url_for('login') }}">Войдите</a>, чтобы начать чат с продавцом.</p>
+                <div class="card chat-card">
+                    <div class="card-header fw-bold">
+                        <a href="{{ url_for('profile', user_id=offer.seller.id) }}" class="text-decoration-none text-dark">
+                            {{ offer.seller.username }}
+                        </a>
+                    </div>
+                        <div class="card-body" style="height: 400px; overflow-y: auto;">
+                            <div class="message">
+                                <strong>Покупатель</strong>
+                                <p>Здравствуйте! Сможете помочь с написанием курсача?</p>
+                            </div>
+                            <div class="message">
+                                <strong>Продавец</strong>
+                                <p>Добрый день, конечно! Можем обсудить детали и дедлайн :)</p>
+                            </div>
+                            <div class="message">
+                                <strong>Покупатель</strong>
+                                <p>Супер, спасибо большое! Сейчас скину все подробности</p>
+                            </div>
+
+                        </div>
+                    <div class="card-footer d-flex">
+                        <a href="{{ url_for('login') }}" class="btn-buy">Войти, чтобы написать</a>
+                    </div>
+                </div>
                 {% endif %}
             {% else %}
                 <p>Продавец не найден</p>
