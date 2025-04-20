@@ -23,11 +23,19 @@
 
                     <form action="{{ url_for('checkout', offer_id=offer.id) }}" method="post">
                         <div class="mb-3">
+                            <label for="payment_method" class="form-label">Выберите способ оплаты</label>
+                            <select class="form-select" id="payment_method" name="payment_method" required>
+                                <option value="credit_card">СБП</option>
+                                <option value="paypal">Юмани</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="notes" class="form-label">Комментарий к заказу (необязательно)</label>
                             <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-success w-100">Подтвердить покупку</button>
+                        <button type="submit" class="btn btn-success w-100">Создать заказ</button>
                     </form>
                 </div>
             </div>

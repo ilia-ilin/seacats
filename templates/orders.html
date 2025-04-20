@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Ваши заказы</h2>
+
+    <div class="list-group">
+        {% for order in orders %}
+            <div class="list-group-item">
+                <h5><a href="{{ url_for('offer', offer_id=order.offer.id) }}">{{ order.offer.title }}</a></h5>
+                <p>Продавец: <a href="{{ url_for('profile', user_id=order.seller.id) }}">{{ order.seller.username }}</a></p>
+                <p>Способ оплаты: {{ order.payment_method }}</p>
+                <p>Комментарий: {{ order.notes }}</p>
+                <p>Статус: {{ order.status }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
