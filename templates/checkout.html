@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if offer %}
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Оформление заказа</h5>
+                </div>
+                <div class="card-body">
+                    <h4>{{ offer.title }}</h4>
+                    <p class="text-muted">Цена: <strong>₽ {{ offer.price }}</strong></p>
+
+                    {% if offer.seller %}
+                    <p>Продавец:
+                        <a href="{{ url_for('profile', user_id=offer.seller.id) }}" class="text-decoration-none">
+                            {{ offer.seller.username }}
+                        </a>
+                    </p>
+                    {% endif %}
+
+                    <form action="{{ url_for('checkout', offer_id=offer.id) }}" method="post">
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Комментарий к заказу (необязательно)</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Подтвердить покупку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>Предложение не найдено.</p>
+    {% endif %}
+</div>
+{% endblock %}

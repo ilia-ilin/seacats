@@ -39,6 +39,18 @@ a {
     padding: 0 1rem;
 }
 
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3e3e3e;
+    text-decoration: none;
+}
+
+.site-title:hover {
+    text-decoration: underline;
+}
+
+
 /* Страница темы */
 .tema-title {
     font-size: 2rem;
@@ -136,6 +148,116 @@ a {
     justify-content: center;
 }
 
+.offer-page-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.offer-left {
+    flex: 0 1 60%;
+}
+
+.offer-right {
+    flex: 0 1 35%;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.offer-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.offer-description {
+    margin-bottom: 1rem;
+}
+
+.offer-price {
+    margin-top: 1.5rem;
+}
+
+.buy-btn {
+    margin-top: 1rem;
+}
+
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.chat-header {
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.chat-content {
+    flex: 1;
+    overflow-y: auto;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+}
+
+.chat-footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.chat-input {
+    width: 80%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.send-message-btn {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.send-message-btn:hover {
+    background-color: #0056b3;
+}
+
+.card {
+    border-radius: 0.75rem;
+    border: 1px solid #ddd;
+}
+
+.card-header {
+    font-size: 1.1rem;
+}
+
+.card-body {
+    background-color: #fafafa;
+}
+
+.card-footer input {
+    flex: 1;
+}
+
+.container {
+    max-width: 1000px;
+}
+
+.offer-title {
+    margin-bottom: 1rem;
+}
+
+.offer-description {
+    margin-bottom: 1rem;
+}
+
+
 /* Пустое сообщение */
 .empty-message {
     text-align: center;
@@ -220,4 +342,64 @@ a {
 
 .btn-primary:hover {
     background-color: #9b7c4d; /* Немного темнее для наведения */
+}
+
+/* Checkout page adjustments */
+.card {
+    border-radius: 16px;
+    border: none;
+    background-color: #fdfdfd;
+}
+
+.card-header.bg-primary {
+    background-color: #2a4d9b !important;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.card-body h4 {
+    font-weight: bold;
+    color: #2a2a2a;
+}
+
+.card-body p {
+    color: #444;
+}
+
+.btn-success {
+    background-color: #3cb371;
+    border-color: #3cb371;
+}
+
+.btn-success:hover {
+    background-color: #2e8b57;
+    border-color: #2e8b57;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+/* Checkout card header — бежево-коричневый */
+.card-header.bg-primary {
+    background-color: #8e7b6f !important;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    color: #fff;
+}
+
+/* Выделение имени продавца */
+.card-body a.text-decoration-none {
+    font-weight: bold;
+    color: #2a4d9b;
+}
+
+.card-body a.text-decoration-none:hover {
+    color: #1f326e;
+    text-decoration: underline;
 }

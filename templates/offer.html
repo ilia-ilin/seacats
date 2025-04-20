@@ -1,33 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="offer-page-container">
+<div class="container mt-4">
     {% if offer %}
-    <div class="offer-header">
-        <h1 class="offer-title">{{ offer.title }}</h1>
-        <p class="offer-price">₽ {{ offer.price }}</p>
-    </div>
-    <div class="offer-main-content">
-        <div class="offer-description">
-            <h2>Описание</h2>
+    <div class="row justify-content-center">
+        <!-- Левая часть -->
+        <div class="col-lg-7 col-md-8 col-sm-12">
+            <h2 class="mb-3">{{ offer.title }}</h2>
+            <h5 class="text-muted">Описание</h5>
             <p>{{ offer.description }}</p>
+
+            <div class="d-flex align-items-center gap-3 mt-3">
+                <span class="fs-5 fw-semibold text-success">₽ {{ offer.price }}</span>
+                <a href="{{ url_for('checkout', offer_id=offer.id) }}" class="btn btn-sm btn-primary">Купить</a>
+            </div>
         </div>
-        <div class="offer-seller">
-            <h3>Продавец:</h3>
+
+        <!-- Правая часть -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mt-4 mt-md-0">
             {% if offer.seller %}
-            <p><a href="{{ url_for('profile', user_id=offer.seller.id) }}" class="seller-link">{{ offer.seller.username }}</a></p>
+            <div class="card shadow-sm">
+                <div class="card-header bg-light fw-bold">
+                    <a href="{{ url_for('profile', user_id=offer.seller.id) }}" class="text-decoration-none">
+                        {{ offer.seller.username }}
+                    </a>
+                </div>
+                <div class="card-body" style="height: 200px; overflow-y: auto;">
+                    <p class="text-muted">Чат с продавцом...</p>
+                </div>
+                <div class="card-footer d-flex">
+                    <input type="text" class="form-control form-control-sm me-2" placeholder="Введите сообщение...">
+                    <button class="btn btn-sm btn-outline-secondary">Отправить</button>
+                </div>
+            </div>
             {% else %}
             <p>Продавец не найден</p>
             {% endif %}
         </div>
-    </div>
-    <div class="offer-actions">
-        {% if offer.seller %}
-        <a href="{{ url_for('message', receiver_id=offer.seller.id) }}" class="btn btn-outline-primary chat-btn">Написать сообщение</a>
-        {% else %}
-        <p>Невозможно отправить сообщение</p>
-        {% endif %}
-        <a href="#" class="btn btn-primary buy-btn">Купить</a>
     </div>
     {% else %}
         <p>Предложение не найдено.</p>

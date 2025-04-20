@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -165,6 +165,18 @@ def offer(offer_id):
 def faq():
     """Страница с вопросами и ответами."""
     return render_template('faq.html')
+
+@app.route('/checkout/<int:offer_id>', methods=['GET', 'POST'])
+def checkout(offer_id):
+    offer = Offer.query.get_or_404(offer_id)
+
+    if request.method == 'POST':
+        # тут логика оформления заказа
+        # например: создать запись в таблице заказов, отправить уведомление и т.д.
+        flash('Покупка успешно оформлена!', 'success')
+        return redirect(url_for('index'))  # или на страницу профиля / чека
+
+    return render_template('checkout.html', offer=offer)
 
 
 @app.route('/message/<int:receiver_id>', methods=['GET', 'POST'])
