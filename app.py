@@ -366,8 +366,6 @@ def message(receiver_id):
             )
             db.session.add(new_message)
             db.session.commit()
-            
-            flash("Сообщение отправлено!", "success")
             return redirect(url_for('message', receiver_id=receiver_id))
 
     return render_template('message.html', messages=messages, receiver=receiver, offer=offer)

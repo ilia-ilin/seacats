@@ -41,7 +41,7 @@
         {% endfor %}
     </div>
     {% else %}
-    <p class="alert alert-info">Отзывов еще нет.</p>
+    <div class="empty-message">Отзывов еще нет.</div>
     {% endif %}
 
     {% if user != current_user %}
