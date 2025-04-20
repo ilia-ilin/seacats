@@ -398,6 +398,18 @@ def messages():
 
     return render_template('messages.html', partners=partner_users)
 
+@app.route('/search', methods=['GET'])
+def search_offers():
+    query = request.args.get('query')
+    if query:
+        # Поиск предложений по имени
+        offers = Offer.query.filter(Offer.name.ilike(f'%{query}%')).all()
+    else:
+        offers = []
+
+    return render_template('search_results.html', offers=offers, query=query)
+
+
 
 if __name__ == '__main__':
     with app.app_context():

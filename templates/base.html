@@ -14,24 +14,21 @@
         }
 
         .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             background-color: #8e7b6f; /* Цвет фона шапки */
-            padding: 10px 0;
+            padding: 10px 20px;
             z-index: 1000; /* Шапка поверх остального контента */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для визуального разделения */
         }
 
-        .header .header-buttons {
-            display: flex;
-            justify-content: space-around;
-        }
-
         .header .site-title {
             font-size: 24px;
-            margin-left: 20px;
             color: #fff; /* Белый цвет для текста сайта */
             text-decoration: none;
         }
@@ -47,6 +44,27 @@
         .header .header-buttons a:hover {
             opacity: 0.8;
             text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+        .header .header-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            margin-left: 20px; /* Отступ слева */
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 100%; /* Занимает всю доступную ширину */
+            max-width: 600px; /* Максимальная ширина поля */
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         .content {
@@ -71,6 +89,14 @@
 
     <div class="header">
         <a href="{{ url_for('home') }}" class="site-title">StudHelper</a>
+
+        <!-- Поле поиска -->
+        <div class="search-bar">
+            <form action="{{ url_for('search_offers') }}" method="GET" style="width: 100%;">
+                <input type="text" name="query" placeholder="Поиск предложений..." class="form-control" />
+            </form>
+        </div>
+
         <div class="header-buttons">
             <a href="{{ url_for('home') }}">Главная</a>
             <a href="{{ url_for('messages') }}" class="nav-link">Сообщения</a>
