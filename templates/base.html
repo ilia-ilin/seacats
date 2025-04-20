@@ -5,6 +5,67 @@
     <title>{{ title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #8e7b6f; /* Цвет фона шапки */
+            padding: 10px 0;
+            z-index: 1000; /* Шапка поверх остального контента */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для визуального разделения */
+        }
+
+        .header .header-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .header .site-title {
+            font-size: 24px;
+            margin-left: 20px;
+            color: #fff; /* Белый цвет для текста сайта */
+            text-decoration: none;
+        }
+
+        .header .header-buttons a {
+            color: white; /* Белые ссылки */
+            font-weight: bold;
+            text-decoration: none; /* Убираем подчеркивание по умолчанию */
+            margin-left: 1rem;
+            transition: opacity 0.2s, text-decoration 0.2s;
+        }
+
+        .header .header-buttons a:hover {
+            opacity: 0.8;
+            text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+        .content {
+            margin-top: 80px; /* Отступ сверху для контента, чтобы шапка не перекрывала */
+            padding: 20px; /* Отступ для содержимого */
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000; /* Подвал поверх контента */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для подвала */
+        }
+    </style>
 </head>
 <body>
 

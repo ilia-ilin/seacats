@@ -3,15 +3,22 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Гарантирует, что страница будет занимать всю высоту окна */
+    margin: 0; /* Убираем стандартные отступы */
 }
 
 .content {
     flex-grow: 1; /* Этот блок будет растягиваться и занимать оставшееся пространство */
     width: 100%; /* Расширяем на всю ширину */
     box-sizing: border-box; /* Чтобы padding не вызывал переполнения */
+    padding-top: 80px; /* Отступ для контента, чтобы не перекрывать фиксированную шапку */
+    padding-bottom: 50px; /* Отступ для контента, чтобы не перекрывать фиксированный подвал */
 }
 
 .header {
+    position: fixed; /* Фиксируем шапку */
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: #8e7b6f; /* Теплый серо-бежевый */
     color: white;
     padding: 1rem 2rem;
@@ -19,6 +26,8 @@ body {
     justify-content: space-between;
     align-items: center;
     font-size: 1.1rem;
+    z-index: 1000; /* Чтобы шапка была поверх контента */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для визуального разделения */
 }
 
 .site-title {
@@ -34,12 +43,12 @@ body {
     align-items: center;  /* Выравнивание по вертикали */
 }
 
-/* Стили для кнопок */
+/* Стили для кнопок в шапке */
 .header-buttons a {
     margin-left: 1rem;
-    color: white;
+    color: white; /* Убедитесь, что цвет кнопок белый */
     font-weight: bold;
-    transition: opacity 0.2s, text-decoration 0.2s; /* Добавлено плавное изменение подчеркивания */
+    transition: opacity 0.2s, text-decoration 0.2s; /* Плавное изменение подчеркивания */
     text-decoration: none; /* Убираем подчеркивание по умолчанию */
 }
 
@@ -52,12 +61,25 @@ body {
     text-decoration: underline; /* Подчеркивание для активных ссылок */
 }
 
+/* Если кнопки белые, то при наведении сделаем их немного прозрачными */
+.header-buttons a:hover {
+    opacity: 0.8;
+    color: #f1f1f1; /* Немного светлее белого при наведении */
+}
+
+
 /* Футер */
 footer {
+    position: fixed; /* Фиксируем футер */
+    bottom: 0;
+    left: 0;
+    right: 0;
     background-color: #f8f9fa;
     padding: 10px 0;
     text-align: center;
     font-size: 0.9rem;
+    z-index: 1000; /* Чтобы футер был поверх контента */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для подвала */
 }
 
 footer a {
@@ -78,17 +100,6 @@ footer a:hover {
     box-sizing: border-box;
 }
 
-.site-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #3e3e3e;
-    text-decoration: none;
-}
-
-.site-title:hover {
-    text-decoration: underline;
-}
-
 /* Страница темы */
 .tema-title {
     font-size: 2rem;
@@ -97,6 +108,9 @@ footer a:hover {
     text-align: center;
     color: #3e3e3e; /* Темный серый для заголовков */
 }
+
+/* Остальной CSS остаётся без изменений */
+
 
 .subcategory-tabs {
     display: flex;
