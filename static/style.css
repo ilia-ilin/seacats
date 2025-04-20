@@ -306,3 +306,9 @@ footer a:hover {
     color: #8e7b6f;
     padding-left: 10px;
 }
+
+.message-container {
+    height: calc(100vh - 200px); /* 200px - отступ для других элементов */
+    overflow-y: auto; /* Включить вертикальную прокрутку */
+    padding-right: 10px; /* Чтобы текст не прилипал к скроллбару */
+}
