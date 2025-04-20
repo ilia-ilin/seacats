@@ -41,6 +41,8 @@ body {
 .header-buttons {
     display: flex;  /* Используем flexbox для горизонтального расположения */
     align-items: center;  /* Выравнивание по вертикали */
+    gap: 1rem;  /* Промежуток между кнопками */
+    padding-right: 30px; /* Отступ справа от кнопок */
 }
 
 /* Стили для кнопок в шапке */
@@ -66,7 +68,6 @@ body {
     opacity: 0.8;
     color: #f1f1f1; /* Немного светлее белого при наведении */
 }
-
 
 /* Футер */
 footer {
@@ -111,13 +112,13 @@ footer a:hover {
 
 /* Остальной CSS остаётся без изменений */
 
-
 .subcategory-tabs {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.75rem;
     margin-bottom: 2rem;
+    text-decoration: none;
 }
 
 .subcategory-tab {
@@ -127,6 +128,7 @@ footer a:hover {
     color: #3e3e3e;
     font-weight: 500;
     transition: 0.2s;
+    text-decoration: none;  
 }
 
 .subcategory-tab:hover {
@@ -302,151 +304,5 @@ footer a:hover {
 
 .subtopic:hover {
     color: #8e7b6f;
-    padding-left: 10px; /* Легкое смещение при наведении */
-}
-
-/* Для мобильных устройств: адаптивное поведение */
-@media (max-width: 768px) {
-    .topics-layout {
-        justify-content: center;
-    }
-
-    .topic-section {
-        width: 100%;
-        max-width: 100%;
-    }
-}
-
-
-/* Стили для формы создания предложения */
-.create-offer-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.form-label {
-    font-weight: 500;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.form-control, .form-select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.btn-primary {
-    background-color: #b08c5f; /* Теплый коричневатый оттенок */
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: #9b7c4d; /* Немного темнее для наведения */
-}
-
-/* Стили для списка предложений */
-.offers-list {
-    margin-top: 30px;
-}
-
-.offer-card {
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-.offer-card h3 {
-    font-size: 1.5rem;
-}
-
-.offer-card p {
-    font-size: 1rem;
-}
-
-.offer-card .btn {
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-}
-
-.offer-card .btn:hover {
-    background-color: #0056b3;
-}
-
-/* Для футера и фиксированных элементов */
-footer {
-    margin-top: auto; /* Для закрепления футера внизу */
-}
-
-/* Контейнер */
-.container {
-    max-width: 1000px;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 30px;
-}
-
-/* Сделаем селектор более специфичным */
-.offer-card .btn-detail {
-    background-color: #b08c5f;
-    color: white;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.25rem;
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
-}
-
-.offer-card .btn-detail:hover {
-    background-color: #8e7b6f; /* Цвет при наведении */
-    opacity: 0.8;
-}
-
-.card .card-header {
-    background-color: #b08c5f !important;
-    color: white !important;
-}
-
-.card .card-header h5 {
-    font-size: 1.25rem !important;
-    font-weight: bold !important;
-}
-
-.message {
-    border: 1px solid #ddd;  /* Рамка */
-    padding: 15px;            /* Внутренние отступы */
-    margin-bottom: 10px;      /* Отступы между сообщениями */
-    border-radius: 10px;      /* Округлые углы */
-    background-color: #f9f9f9; /* Светлый фон */
-}
-
-.message p {
-    margin: 10px 0;  /* Отступы между текстом и датой */
-}
-
-textarea {
-    border-radius: 10px;  /* Округлые углы для текстового поля */
-}
-
-button {
-    width: 100%;          /* Кнопка на всю ширину */
-    border-radius: 5px;   /* Округлые углы кнопки */
+    padding-left: 10px;
 }
