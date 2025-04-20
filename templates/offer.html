@@ -2,6 +2,7 @@
 
 {% block content %}
 <style>
+    /* Стили для чата */
     .chat-card {
         background-color: #f9f9fb;
         border-radius: 15px;
@@ -60,29 +61,118 @@
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
     }
+
+    /* Стили для левой части */
+    .offer-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #ffffff;
+        background-color: #5d4037;
+        padding: 10px 15px;
+        border-radius: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .offer-seller {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        color: #ffffff;
+        background-color: #8d6e63;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .offer-description {
+        background-color: #fdfdfd;
+        padding: 1.2rem;
+        border-radius: 10px;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .offer-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .offer-price {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #3e2723;
+    }
+
+    .btn-buy {
+        background-color: #d7ccc8;
+        color: #3e2723;
+        font-size: 1rem;
+        padding: 0.8rem 1.4rem;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        border: none;
+    }
+
+    .btn-buy:hover {
+        background-color: #b49b91;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-buy:focus {
+        outline: none;
+    }
+
+    .footer-background {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        z-index: -1;
+    }
+
+    @media (max-width: 768px) {
+        .footer-background {
+            display: none;
+        }
+    }
 </style>
 
 <div class="container mt-4">
     {% if offer %}
-    <div class="row">
+    <div class="row justify-content-start">
         <!-- Левая часть -->
-        <div class="col-lg-7 col-md-8 col-sm-12">
-            <div class="text-center">
-                <h2 class="mb-3">{{ offer.title }}</h2>
-                <h5 class="text-muted">Описание</h5>
-                <p>{{ offer.description }}</p>
+        <div class="col-lg-6 col-md-8 col-sm-12">
+            <div class="text-start" style="margin-left: 10px;">
+                <div class="offer-title">{{ offer.title }}</div>
+                <div class="offer-seller text-muted">
+                    Продавец:
+                    <a href="{{ url_for('profile', user_id=offer.seller.id) }}" class="text-decoration-none">
+                        {{ offer.seller.username }}
+                    </a>
+                </div>
 
-                <div class="d-flex justify-content-center gap-3 mt-3">
-                    <span class="fs-5 fw-semibold text-success">₽ {{ offer.price }}</span>
+                <div class="offer-description">
+                    {{ offer.description }}
+                </div>
+
+                <div class="offer-actions">
+                    <span class="offer-price">₽ {{ offer.price }}</span>
 
                     {% if current_user.is_authenticated %}
                         {% if current_user.id == offer.seller.id %}
-                            <a href="{{ url_for('edit_offer', offer_id=offer.id) }}" class="btn btn-sm btn-warning rounded-pill">Редактировать</a>
+                            <a href="{{ url_for('edit_offer', offer_id=offer.id) }}" class="btn btn-warning rounded-pill">Редактировать</a>
                         {% else %}
-                            <a href="{{ url_for('checkout', offer_id=offer.id) }}" class="btn btn-sm btn-primary rounded-pill">Купить</a>
+                            <a href="{{ url_for('checkout', offer_id=offer.id) }}" class="btn-buy">Купить</a>
                         {% endif %}
                     {% else %}
-                        <a href="{{ url_for('login') }}" class="btn btn-sm btn-primary rounded-pill">Войти, чтобы купить</a>
+                        <a href="{{ url_for('login') }}" class="btn btn-primary rounded-pill">Войти, чтобы купить</a>
                     {% endif %}
                 </div>
             </div>
@@ -129,4 +219,8 @@
         <p>Предложение не найдено.</p>
     {% endif %}
 </div>
+
+<!-- Фоновая картинка внизу -->
+<img src="{{ url_for('static', filename='half-circle2.png') }}" alt="footer background" class="footer-background">
+
 {% endblock %}
