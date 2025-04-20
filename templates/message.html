@@ -37,17 +37,6 @@
             </div>
         </div>
     </div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">
-                        <ul>
-                            <li>{{ message }}</li>
-                        </ul>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
         <form method="POST" id="message-form">
             <div class="form-group">
                 <label for="message-text">Ваше сообщение:</label>
@@ -59,11 +48,26 @@
 </div>
 
 <script>
-    document.getElementById("message-text").addEventListener("keydown", function(event) {
-        if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault();
-            document.getElementById("message-form").submit();
+    document.addEventListener('DOMContentLoaded', function() {
+        // Автофокус на поле ввода
+        const messageInput = document.getElementById('message-text');
+        if(messageInput) {
+            messageInput.focus();
         }
+
+        // Автопрокрутка
+        const messagesDiv = document.querySelector('.message-container');
+        if(messagesDiv) {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Обработчик ENTER
+        document.getElementById("message-text").addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                document.getElementById("message-form").submit();
+            }
+        });
     });
 </script>
 {% endblock %}

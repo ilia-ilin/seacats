@@ -308,7 +308,7 @@ footer a:hover {
 }
 
 .message-container {
-    height: calc(100vh - 200px); /* 200px - отступ для других элементов */
+    height: calc(70vh - 200px); /* 200px - отступ для других элементов */
     overflow-y: auto; /* Включить вертикальную прокрутку */
     padding-right: 10px; /* Чтобы текст не прилипал к скроллбару */
     padding-left: 10px; /* Чтобы текст не прилипал к скроллбару */
