@@ -1,32 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container my-5">
-    <h2 class="text-center mb-4">Вход</h2>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    <ul>
-                        <li>{{ message }}</li>
-                    </ul>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-    <form method="POST" class="p-4 border rounded bg-light">
-        <div class="mb-3">
-            <label for="username" class="form-label">Имя пользователя</label>
-            <input type="text" id="username" name="username" class="form-control" required>
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-header bg-custom text-white rounded-top-4">
+            <h5 class="mb-0">Вход</h5>
         </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <ul>
+                            <li>{{ message }}</li>
+                        </ul>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-        <div class="mb-3">
-            <label for="password" class="form-label">Пароль</label>
-            <input type="password" id="password" name="password" class="form-control" required>
-        </div>
+        <form method="POST" class="p-4 border rounded bg-light">
+            <div class="mb-3">
+                <label for="username" class="form-label">Имя пользователя</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
 
-        <button type="submit" class="btn btn-primary w-100">Войти</button>
-    </form>
+            <div class="mb-3">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Войти</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
