@@ -60,32 +60,41 @@
         border-radius: 20px;
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
+        transition: background-color 0.3s, transform 0.1s;
+    }
+    /* Цвет кнопки "Отправить" при наведении */
+    .chat-card button:hover {
+    background-color: #b49b91; /* Одинаковый цвет для наведения */
     }
 
     /* Стили для левой части */
+    .offer-section {
+        background-color: #f7f7f7; /* Светлый фон */
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
     .offer-title {
         font-size: 2rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
-        color: #ffffff;
-        background-color: #5d4037;
+        background-color: #fff; /* Белый фон для названия */
         padding: 10px 15px;
         border-radius: 8px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
     }
 
     .offer-seller {
         font-size: 1.1rem;
         margin-bottom: 1.5rem;
-        color: #ffffff;
-        background-color: #8d6e63;
+        background-color: #fff; /* Белый фон для продавца */
         padding: 8px 12px;
         border-radius: 8px;
     }
 
     .offer-description {
-        background-color: #fdfdfd;
+        background-color: #fff; /* Белый фон для описания */
         padding: 1.2rem;
         border-radius: 10px;
         font-size: 1rem;
@@ -94,28 +103,35 @@
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
     }
 
-    .offer-actions {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        justify-content: center;
-    }
-
     .offer-price {
         font-size: 1.4rem;
         font-weight: 600;
         color: #3e2723;
+        background-color: #fff; /* Белый фон для цены */
+        padding: 10px 15px;
+        border-radius: 8px;
+    }
+
+    .offer-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 20px; /* Добавим отступ сверху, чтобы кнопка не наезжала на цену */
     }
 
     .btn-buy {
         background-color: #d7ccc8;
         color: #3e2723;
         font-size: 1rem;
-        padding: 0.8rem 1.4rem;
+        padding: 1rem 2rem; /* Увеличиваем ширину кнопки */
         border-radius: 25px;
         transition: all 0.3s ease;
         text-decoration: none;
         border: none;
+        width: 100%; /* Растягиваем кнопку на всю ширину */
+        text-align: center;
     }
 
     .btn-buy:hover {
@@ -149,7 +165,7 @@
     <div class="row justify-content-start">
         <!-- Левая часть -->
         <div class="col-lg-6 col-md-8 col-sm-12">
-            <div class="text-start" style="margin-left: 10px;">
+            <div class="offer-section">
                 <div class="offer-title">{{ offer.title }}</div>
                 <div class="offer-seller text-muted">
                     Продавец:
@@ -162,9 +178,11 @@
                     {{ offer.description }}
                 </div>
 
-                <div class="offer-actions">
-                    <span class="offer-price">₽ {{ offer.price }}</span>
+                <div class="offer-price">
+                    ₽ {{ offer.price }}
+                </div>
 
+                <div class="offer-actions">
                     {% if current_user.is_authenticated %}
                         {% if current_user.id == offer.seller.id %}
                             <a href="{{ url_for('edit_offer', offer_id=offer.id) }}" class="btn btn-warning rounded-pill">Редактировать</a>
