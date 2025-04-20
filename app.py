@@ -334,7 +334,7 @@ def checkout(offer_id):
     offer = Offer.query.get_or_404(offer_id)
 
     if request.method == 'POST':
-        flash('Покупка успешно оформлена!', 'success')
+        #flash('Покупка успешно оформлена!', 'success')
         return redirect(url_for('home'))  # или на страницу профиля
 
     return render_template('checkout.html', offer=offer)

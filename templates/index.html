@@ -3,12 +3,12 @@
 {% block content %}
 <style>
     .background-image-right {
-        position: absolute;
+        position: fixed;
         top: 0;
         right: 0;
         width: 50vw; /* Ширина полукруга */
-        height: 100%;
-        background: url("{{ url_for('static', filename='half-circle1.png') }}") no-repeat right center;
+        height: 150%;
+        background: url("{{ url_for('static', filename='half-circle1.png') }}") no-repeat center center;
         background-size: cover;
         z-index: -1;
         opacity: 0.6;
@@ -48,4 +48,26 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const parallaxElement = document.querySelector('.background-image-right');
+        const pageHeight = window.innerHeight;
+
+        function updateParallax() {
+            let mainContentHeight = document.querySelector('body').offsetHeight - pageHeight;
+            const windowScrollPercent = window.pageYOffset * 100 / mainContentHeight;
+            parallaxElement.style.transform = 
+                `translateZ(0)
+                 translateY(${-windowScrollPercent/4}%)`;
+
+            requestAnimationFrame(updateParallax);
+        }
+    
+        window.addEventListener('scroll', function() {
+            requestAnimationFrame(updateParallax);
+        });
+    });
+</script>
 {% endblock %}
