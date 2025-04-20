@@ -74,9 +74,9 @@ def get_category_for_subtopic(subtopic):
 
 @app.route('/')
 def home():
-    """Главная страница с предложениями."""
-    offers = Offer.query.all()
-    return render_template('index.html', offers=offers)
+    """Главная страница с категориями и подкатегориями."""
+    return render_template('index.html', categories=CATEGORIES)
+
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -204,6 +204,33 @@ def message(receiver_id):
     ).order_by(Message.timestamp).all()
 
     return render_template('message.html', messages=messages, receiver=receiver)
+
+@app.route('/messages')
+def messages():
+    """Список всех диалогов текущего пользователя."""
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+
+    # Получаем уникальных собеседников
+    partner_ids = db.session.query(
+        Message.sender_id, Message.receiver_id
+    ).filter(
+        (Message.sender_id == user_id) | (Message.receiver_id == user_id)
+    ).all()
+
+    # Извлекаем ID собеседников (кроме самого пользователя)
+    unique_ids = set()
+    for sender_id, receiver_id in partner_ids:
+        if sender_id != user_id:
+            unique_ids.add(sender_id)
+        if receiver_id != user_id:
+            unique_ids.add(receiver_id)
+
+    partners = User.query.filter(User.id.in_(unique_ids)).all()
+
+    return render_template('messages.html', partners=partners)
 
 if __name__ == '__main__':
     # Создание таблиц в базе данных

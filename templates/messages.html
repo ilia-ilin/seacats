@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Мои диалоги</h2>
+  {% if partners %}
+    <ul class="list-group">
+      {% for user in partners %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ user.username }}
+          <a href="{{ url_for('message', receiver_id=user.id) }}" class="btn btn-outline-primary btn-sm">Открыть чат</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Нет сообщений.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,16 +1,17 @@
-/* Базовые стили */
+/* Основной контейнер для страницы */
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f2f1eb; /* Теплый светло-бежевый фон */
-    color: #4a4a4a; /* Темный серый текст для хорошей читаемости */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Гарантирует, что страница будет занимать всю высоту окна */
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+.content {
+    flex-grow: 1; /* Этот блок будет растягиваться и занимать оставшееся пространство */
+    width: 100%; /* Расширяем на всю ширину */
+    box-sizing: border-box; /* Чтобы padding не вызывал переполнения */
 }
 
+/* Шапка */
 .header {
     background-color: #8e7b6f; /* Теплый серо-бежевый */
     color: white;
@@ -21,6 +22,20 @@ a {
     font-size: 1.1rem;
 }
 
+.site-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+/* Контейнер для кнопок в шапке */
+.header-buttons {
+    display: flex;  /* Используем flexbox для горизонтального расположения */
+    align-items: center;  /* Выравнивание по вертикали */
+}
+
+/* Стили для кнопок */
 .header-buttons a {
     margin-left: 1rem;
     color: white;
@@ -32,11 +47,30 @@ a {
     opacity: 0.8;
 }
 
+/* Футер */
+footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+footer a {
+    text-decoration: none;
+    color: #6c757d; /* Серая ссылка для FAQ */
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
 /* Контейнер содержимого */
 .content {
     max-width: 1100px;
     margin: 2rem auto;
     padding: 0 1rem;
+    width: 100%; /* Обеспечиваем, чтобы контент занимал всю ширину */
+    box-sizing: border-box;
 }
 
 .site-title {
@@ -49,7 +83,6 @@ a {
 .site-title:hover {
     text-decoration: underline;
 }
-
 
 /* Страница темы */
 .tema-title {
@@ -152,6 +185,7 @@ a {
     display: flex;
     justify-content: space-between;
     gap: 2rem;
+    flex-wrap: wrap; /* Чтобы страницы были адаптивными */
 }
 
 .offer-left {
@@ -184,80 +218,6 @@ a {
     margin-top: 1rem;
 }
 
-.chat-box {
-    display: flex;
-    flex-direction: column;
-    height: 400px;
-}
-
-.chat-header {
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
-.chat-content {
-    flex: 1;
-    overflow-y: auto;
-    border-bottom: 1px solid #ccc;
-    padding: 1rem 0;
-}
-
-.chat-footer {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.chat-input {
-    width: 80%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.send-message-btn {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.send-message-btn:hover {
-    background-color: #0056b3;
-}
-
-.card {
-    border-radius: 0.75rem;
-    border: 1px solid #ddd;
-}
-
-.card-header {
-    font-size: 1.1rem;
-}
-
-.card-body {
-    background-color: #fafafa;
-}
-
-.card-footer input {
-    flex: 1;
-}
-
-.container {
-    max-width: 1000px;
-}
-
-.offer-title {
-    margin-bottom: 1rem;
-}
-
-.offer-description {
-    margin-bottom: 1rem;
-}
-
-
 /* Пустое сообщение */
 .empty-message {
     text-align: center;
@@ -266,45 +226,78 @@ a {
     padding: 2rem 0;
 }
 
+/* Общий контейнер для раздела с темами */
+.topics-layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+/* Блок для каждой темы */
+.topic-section {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.topic-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Основное название темы */
 .main-topic {
     font-size: 1.5rem;
     font-weight: bold;
-    text-decoration: none;
     color: #8e7b6f;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
 }
 
+.main-topic:hover {
+    color: #5c4a39; /* Темный оттенок для наведения */
+}
+
+/* Линия с подкатегориями */
 .subtopics-line {
     display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
+/* Ссылки подкатегорий */
 .subtopic {
+    font-size: 1rem;
+    color: #6c757d; /* Серый цвет для подкатегорий */
     text-decoration: none;
-    color: #4a4a4a;
-    background-color: #f5f5f0; /* Светлый оттенок для подкатегорий */
-    padding: 5px 10px;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease;
+    padding: 5px 0;
+    transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
 .subtopic:hover {
-    background-color: #e0d9c6; /* Легкое затемнение при наведении */
+    color: #8e7b6f;
+    padding-left: 10px; /* Легкое смещение при наведении */
 }
 
-.topic-section {
-    padding: 1rem;
-    border: 1px solid #e0d9c6; /* Светлая линия для разделов */
-    border-radius: 0.75rem;
-    background-color: #ffffff;
+/* Для мобильных устройств: адаптивное поведение */
+@media (max-width: 768px) {
+    .topics-layout {
+        justify-content: center;
+    }
+
+    .topic-section {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
-.payment-box {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
 
 /* Стили для формы создания предложения */
 .create-offer-container {
@@ -344,62 +337,48 @@ a {
     background-color: #9b7c4d; /* Немного темнее для наведения */
 }
 
-/* Checkout page adjustments */
-.card {
-    border-radius: 16px;
-    border: none;
-    background-color: #fdfdfd;
+/* Стили для списка предложений */
+.offers-list {
+    margin-top: 30px;
 }
 
-.card-header.bg-primary {
-    background-color: #2a4d9b !important;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+.offer-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
-.card-body h4 {
-    font-weight: bold;
-    color: #2a2a2a;
+.offer-card h3 {
+    font-size: 1.5rem;
 }
 
-.card-body p {
-    color: #444;
+.offer-card p {
+    font-size: 1rem;
 }
 
-.btn-success {
-    background-color: #3cb371;
-    border-color: #3cb371;
+.offer-card .btn {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
 }
 
-.btn-success:hover {
-    background-color: #2e8b57;
-    border-color: #2e8b57;
+.offer-card .btn:hover {
+    background-color: #0056b3;
 }
 
-.form-control {
-    border-radius: 10px;
-    border: 1px solid #ccc;
+/* Для футера и фиксированных элементов */
+footer {
+    margin-top: auto; /* Для закрепления футера внизу */
 }
 
-textarea.form-control {
-    resize: vertical;
-}
-
-/* Checkout card header — бежево-коричневый */
-.card-header.bg-primary {
-    background-color: #8e7b6f !important;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    color: #fff;
-}
-
-/* Выделение имени продавца */
-.card-body a.text-decoration-none {
-    font-weight: bold;
-    color: #2a4d9b;
-}
-
-.card-body a.text-decoration-none:hover {
-    color: #1f326e;
-    text-decoration: underline;
+/* Контейнер */
+.container {
+    max-width: 1000px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 30px;
 }
