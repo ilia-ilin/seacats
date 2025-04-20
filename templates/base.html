@@ -93,12 +93,13 @@
         <!-- Поле поиска -->
         <div class="search-bar">
             <form action="{{ url_for('search_offers') }}" method="GET" style="width: 100%;">
-                <input type="text" name="query" placeholder="Поиск предложений..." class="form-control" />
+                <input type="text" name="query" placoeholder="Поиск предложений..." class="form-control" />
             </form>
         </div>
 
         <div class="header-buttons">
             <a href="{{ url_for('home') }}">Главная</a>
+            <a href="{{ url_for('orders') }}">Покупки</a>
             <a href="{{ url_for('messages') }}" class="nav-link">Сообщения</a>
             {% if current_user.is_authenticated %}
                 <a href="{{ url_for('profile') }}">Мой профиль</a>

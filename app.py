@@ -130,19 +130,14 @@ def register():
     """Регистрация нового пользователя."""
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
-        repassword = request.form['repassword']
+        password = generate_password_hash(request.form['password'])
 
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             flash('Имя пользователя уже занято, пожалуйста, выберите другое имя.', 'danger')
             return redirect(url_for('register'))
-        
-        if password != repassword:
-            flash('Пароли на совпадают.', 'danger')
-            return redirect(url_for('register'))
 
-        user = User(username=username, password=generate_password_hash(password))
+        user = User(username=username, password=password)
         db.session.add(user)
         db.session.commit()
         flash('Регистрация успешна! Пожалуйста, войдите в систему.', 'success')
@@ -275,6 +270,18 @@ def create_review(user_id):
 
     return render_template('create_review.html', user=user_to_review)
 
+@app.route('/orders')
+def orders():
+    """Страница с заказами пользователя."""
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    # Получаем все заказы текущего пользователя
+    orders = Order.query.filter((Order.buyer_id == current_user.id) | (Order.seller_id == current_user.id)).all()
+
+    return render_template('orders.html', orders=orders)
+
+
 @app.route('/offer/<int:offer_id>', methods=['GET', 'POST'])
 def offer(offer_id):
     """Просмотр конкретного предложения и чата с продавцом."""
@@ -333,7 +340,7 @@ def checkout(offer_id):
     offer = Offer.query.get_or_404(offer_id)
 
     if request.method == 'POST':
-        #flash('Покупка успешно оформлена!', 'success')
+        flash('Покупка успешно оформлена!', 'success')
         return redirect(url_for('home'))  # или на страницу профиля
 
     return render_template('checkout.html', offer=offer)
