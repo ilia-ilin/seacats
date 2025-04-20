@@ -1,20 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4 text-center">Выберите тему</h1>
+<style>
+    .background-image-right {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50vw; /* Ширина полукруга */
+        height: 100%;
+        background: url("{{ url_for('static', filename='half-circle1.png') }}") no-repeat right center;
+        background-size: cover;
+        z-index: -1;
+        opacity: 0.6;
+        pointer-events: none;
+        border-top-left-radius: 100%;
+        border-bottom-left-radius: 100%;
+    }
 
-    <div class="topics-layout">
-        {% for category in categories %}
-        <div class="topic-section mb-4">
-            <a href="{{ url_for('show_subtopic', subtopic=category.subcategories[0].name) }}" class="main-topic">{{ category.name }}</a>
-            <div class="subtopics-line mt-2">
-                {% for subcategory in category.subcategories %}
-                <a href="{{ url_for('show_subtopic', subtopic=subcategory.name) }}" class="subtopic">{{ subcategory.name }}</a>
-                {% endfor %}
+    /* Контейнер для позиционирования */
+    .content-wrapper {
+        position: relative;
+        z-index: 1;
+        padding-left: 1vw; /* Сдвигаем контент влево, чтобы избежать наезда на картинку */
+    }
+
+    .container {
+        padding-left: 0; /* Убираем стандартные отступы контейнера */
+    }
+</style>
+
+<div class="background-image-right"></div>
+
+<div class="content-wrapper">
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Справляться с учёбой проще, когда ты не один!</h1>
+
+        <div class="topics-layout">
+            {% for category in categories %}
+            <div class="topic-section mb-4">
+                <a href="{{ url_for('show_subtopic', subtopic=category.subcategories[0].name) }}" class="main-topic">{{ category.name }}</a>
+                <div class="subtopics-line mt-2">
+                    {% for subcategory in category.subcategories %}
+                    <a href="{{ url_for('show_subtopic', subtopic=subcategory.name) }}" class="subtopic">{{ subcategory.name }}</a>
+                    {% endfor %}
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}
