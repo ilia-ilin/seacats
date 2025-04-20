@@ -1,19 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Ваши заказы</h2>
+<h2>Ваши заказы</h2>
 
-    <div class="list-group">
-        {% for order in orders %}
-            <div class="list-group-item">
-                <h5><a href="{{ url_for('offer', offer_id=order.offer.id) }}">{{ order.offer.title }}</a></h5>
-                <p>Продавец: <a href="{{ url_for('profile', user_id=order.seller.id) }}">{{ order.seller.username }}</a></p>
-                <p>Способ оплаты: {{ order.payment_method }}</p>
-                <p>Комментарий: {{ order.notes }}</p>
-                <p>Статус: {{ order.status }}</p>
-            </div>
-        {% endfor %}
+{% for order in orders %}
+    <div class="order">
+        <h3>Предложение: <a href="{{ url_for('offer', offer_id=order.offer.id) }}">{{ order.offer.title }}</a></h3>
+        <p>Продавец: <a href="{{ url_for('profile', user_id=order.seller.id) }}">{{ order.seller.username }}</a></p>
+        <p>Дата создания: {{ order.timestamp }}</p>
+        <p>Статус: {{ order.status }}</p>
+
+        <!-- Таймер для оплаты -->
+        {% if order.status == 'pending' %}
+            <p>Ожидайте оплату (30 минут на оплату)</p>
+            <p id="timer{{ order.id }}" class="timer"></p>
+            <script>
+                var expirationTime = new Date("{{ order.expiration_time }}").getTime();
+                var countdown = setInterval(function() {
+                    var now = new Date().getTime();
+                    var distance = expirationTime - now;
+                    if (distance < 0) {
+                        clearInterval(countdown);
+                        document.getElementById("timer{{ order.id }}").innerHTML = "Время истекло!";
+                    } else {
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        document.getElementById("timer{{ order.id }}").innerHTML = minutes + "м " + seconds + "с ";
+                    }
+                }, 1000);
+            </script>
+        {% endif %}
+
+        <!-- Кнопка для оплаты -->
+        {% if order.status == 'pending' %}
+            <form action="{{ url_for('checkout', offer_id=order.offer.id) }}" method="POST">
+                <button type="submit" class="btn btn-primary">Оплатить</button>
+            </form>
+        {% endif %}
+
     </div>
-</div>
+{% endfor %}
 {% endblock %}

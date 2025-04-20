@@ -3,6 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager
+from datetime import datetime, timedelta
 
 # Инициализация приложения Flask
 app = Flask(__name__)
@@ -80,6 +81,23 @@ class Review(db.Model):
 
     user = db.relationship('User', foreign_keys=[user_id], backref='reviews_received')
     reviewer = db.relationship('User', foreign_keys=[reviewer_id], backref='reviews_given')
+
+
+class Order(db.Model):
+    """Модель заказа."""
+    id = db.Column(db.Integer, primary_key=True)
+    offer_id = db.Column(db.Integer, db.ForeignKey('offer.id'), nullable=False)
+    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    timestamp = db.Column(db.DateTime, server_default=db.func.now())
+    status = db.Column(db.String(20), default='pending')  # Статус заказа: 'pending', 'completed', 'expired'
+
+    offer = db.relationship('Offer', backref='orders')
+    seller = db.relationship('User', foreign_keys=[seller_id])
+    buyer = db.relationship('User', foreign_keys=[buyer_id])
+
+    def __repr__(self):
+        return f'<Order {self.id}, {self.offer.title}, {self.buyer.username}>'
 
 
 # Вспомогательные функции
@@ -277,14 +295,21 @@ def orders():
         return redirect(url_for('login'))
 
     # Получаем все заказы текущего пользователя
-    orders = Order.query.filter((Order.buyer_id == current_user.id) | (Order.seller_id == current_user.id)).all()
+    orders = Order.query.filter(
+        (Order.buyer_id == current_user.id) | (Order.seller_id == current_user.id)
+    ).all()
+
+    # Добавим логику для отображения времени для оплаты
+    for order in orders:
+        order_time = order.timestamp
+        expiration_time = order_time + timedelta(minutes=30)  # Таймер 30 минут
+        order.expiration_time = expiration_time
 
     return render_template('orders.html', orders=orders)
 
 
 @app.route('/offer/<int:offer_id>', methods=['GET', 'POST'])
 def offer(offer_id):
-    """Просмотр конкретного предложения и чата с продавцом."""
     offer = Offer.query.get_or_404(offer_id)
 
     if request.method == 'POST':
@@ -299,17 +324,18 @@ def offer(offer_id):
         db.session.add(new_message)
         db.session.commit()
 
+        # Создаем новый заказ
+        order = Order(
+            offer_id=offer.id,
+            seller_id=offer.seller.id,
+            buyer_id=current_user.id
+        )
+        db.session.add(order)
+        db.session.commit()
+
         return redirect(url_for('offer', offer_id=offer.id))
 
-    if current_user.is_authenticated:
-        messages = Message.query.filter(
-            Message.offer_id == offer_id,
-            (Message.sender_id == current_user.id) | (Message.receiver_id == current_user.id)
-        ).order_by(Message.timestamp).all()
-    else:
-        messages = []
-
-    return render_template('offer.html', offer=offer, messages=messages)
+    return render_template('offer.html', offer=offer)
 
 
 
@@ -340,10 +366,16 @@ def checkout(offer_id):
     offer = Offer.query.get_or_404(offer_id)
 
     if request.method == 'POST':
-        flash('Покупка успешно оформлена!', 'success')
+        # Логика для оплаты
+        order = Order.query.filter_by(offer_id=offer.id, buyer_id=current_user.id, status='pending').first()
+        if order:
+            order.status = 'completed'  # Обновляем статус заказа
+            db.session.commit()
+            flash('Покупка успешно оформлена!', 'success')
         return redirect(url_for('home'))  # или на страницу профиля
 
     return render_template('checkout.html', offer=offer)
+
 
 
 @app.route('/message/<int:receiver_id>/<int:offer_id>', methods=['GET', 'POST'])
