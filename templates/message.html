@@ -12,28 +12,42 @@
         {% endfor %}
     </div>
 
+    
     <!-- Имя собеседника должно быть сверху -->
     <h3>Сообщения с <a href="{{ url_for('profile', user_id=receiver.id) }}">{{ receiver.username }}</a></h3>
-
-    <!-- Перемещаем предложение сюда, под имя собеседника -->
-    {% if offer %}
-    <div class="offer-info mt-4">
-        <h4>Предложение:</h4>
-        <p><strong><a href="{{ url_for('offer', offer_id=offer.id) }}">{{ offer.title }}</a></strong></p>
-    </div>
-    {% endif %}
-
-    <div class="message-container">
-        <div class="messages">
-            {% for msg in messages %}
-                <div class="message border p-3 mb-2 rounded">
-                    <strong><a href="{{ url_for('profile', user_id=msg.sender.id) }}">{{ msg.sender.username }}</a>:</strong>
-                    <p>{{ msg.text }}</p>
-                    <small class="text-muted">{{ msg.timestamp }}</small>
-                </div>
-            {% endfor %}
+    <div class="card shadow rounded-4">
+        <!-- Перемещаем предложение сюда, под имя собеседника -->
+        {% if offer %}
+        <!-- <div class="offer-info mt-4"> -->
+        <div class="card-header bg-custom text-white rounded-top-4">
+            <h4>Предложение:</h4>
+            <p><strong><a href="{{ url_for('offer', offer_id=offer.id) }}">{{ offer.title }}</a></strong></p>
         </div>
+        {% endif %}
 
+        <div class="message-container">
+            <div class="messages">
+                {% for msg in messages %}
+                    <div class="message border p-3 mb-2 rounded">
+                        <strong><a href="{{ url_for('profile', user_id=msg.sender.id) }}">{{ msg.sender.username }}</a>:</strong>
+                        <p>{{ msg.text }}</p>
+                        <small class="text-muted">{{ msg.timestamp }}</small>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <ul>
+                            <li>{{ message }}</li>
+                        </ul>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <form method="POST" id="message-form">
             <div class="form-group">
                 <label for="message-text">Ваше сообщение:</label>
@@ -41,7 +55,7 @@
             </div>
             <button type="submit" class="btn btn-primary mt-2">Отправить</button>
         </form>
-    </div>
+    
 </div>
 
 <script>

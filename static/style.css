@@ -128,7 +128,7 @@ footer a:hover {
     color: #3e3e3e;
     font-weight: 500;
     transition: 0.2s;
-    text-decoration: none;  
+    text-decoration: none;
 }
 
 .subcategory-tab:hover {
@@ -305,4 +305,38 @@ footer a:hover {
 .subtopic:hover {
     color: #8e7b6f;
     padding-left: 10px;
+}
+
+.message-container {
+    height: calc(100vh - 200px); /* 200px - отступ для других элементов */
+    overflow-y: auto; /* Включить вертикальную прокрутку */
+    padding-right: 10px; /* Чтобы текст не прилипал к скроллбару */
+    padding-left: 10px; /* Чтобы текст не прилипал к скроллбару */
+}
+
+a {
+    color: inherit;  /* Наследуем цвет от родительского элемента */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+/* Убираем стандартный синий цвет ссылок, особенно в кнопках */
+a:hover {
+    color: inherit;  /* Наследуем цвет при наведении */
+    text-decoration: none; /* Убираем подчеркивание при наведении */
+}
+
+/* Для кнопок, если они содержат ссылку */
+.btn-primary {
+    background-color: #a66c33;
+    border-color: #a66c33;
+    color: white; /* Устанавливаем цвет текста в кнопке */
+}
+
+.btn-primary:hover {
+    background-color: #a66c33; /* Цвет кнопки при наведении */
+    border-color: #a66c33; /* Цвет рамки при наведении */
+}
+
+.bg-custom {
+    background-color: #b18c5f;
 }

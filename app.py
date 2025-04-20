@@ -270,7 +270,6 @@ def create_review(user_id):
 
     return render_template('create_review.html', user=user_to_review)
 
-
 @app.route('/offer/<int:offer_id>', methods=['GET', 'POST'])
 def offer(offer_id):
     """Просмотр конкретного предложения и чата с продавцом."""
@@ -288,13 +287,16 @@ def offer(offer_id):
         db.session.add(new_message)
         db.session.commit()
 
-        flash("Сообщение отправлено!", "success")
         return redirect(url_for('offer', offer_id=offer.id))
 
-    messages = Message.query.filter(
-        ((Message.sender_id == current_user.id) & (Message.receiver_id == offer.seller.id)) |
-        ((Message.sender_id == offer.seller.id) & (Message.receiver_id == current_user.id))
-    ).order_by(Message.timestamp).all()
+    # Проверка на авторизацию перед использованием current_user.id
+    if current_user.is_authenticated:
+        messages = Message.query.filter(
+            ((Message.sender_id == current_user.id) & (Message.receiver_id == offer.seller.id)) |
+            ((Message.sender_id == offer.seller.id) & (Message.receiver_id == current_user.id))
+        ).order_by(Message.timestamp).all()
+    else:
+        messages = []  # Пустой список, если пользователь не авторизован
 
     return render_template('offer.html', offer=offer, messages=messages)
 
@@ -364,7 +366,8 @@ def message(receiver_id):
             )
             db.session.add(new_message)
             db.session.commit()
-
+            
+            flash("Сообщение отправлено!", "success")
             return redirect(url_for('message', receiver_id=receiver_id))
 
     return render_template('message.html', messages=messages, receiver=receiver, offer=offer)
@@ -394,6 +397,18 @@ def messages():
     partner_users = User.query.filter(User.id.in_(partners)).all()
 
     return render_template('messages.html', partners=partner_users)
+
+@app.route('/search', methods=['GET'])
+def search_offers():
+    query = request.args.get('query')
+    if query:
+        # Поиск предложений по имени
+        offers = Offer.query.filter(Offer.name.ilike(f'%{query}%')).all()
+    else:
+        offers = []
+
+    return render_template('search_results.html', offers=offers, query=query)
+
 
 
 if __name__ == '__main__':
