@@ -328,39 +328,11 @@ def checkout(offer_id):
     offer = Offer.query.get_or_404(offer_id)
 
     if request.method == 'POST':
-        payment_method = request.form['payment_method']
-        notes = request.form.get('notes', '')  # Получаем комментарий к заказу
-
-        # Логика оформления заказа (например, сохранить заказ в базе данных)
-        # Здесь может быть логика для обработки платежа
-
-        # Например, сохраняем заказ в базу данных
-        order = Order(
-            offer_id=offer.id,
-            buyer_id=current_user.id,
-            seller_id=offer.seller.id,
-            payment_method=payment_method,
-            notes=notes,
-            status='pending'  # или 'completed', в зависимости от процесса
-        )
-        db.session.add(order)
-        db.session.commit()
-
-        flash('Заказ успешно оформлен!', 'success')
-        return redirect(url_for('orders'))  # Перенаправление на страницу заказов
+        flash('Покупка успешно оформлена!', 'success')
+        return redirect(url_for('home'))  # или на страницу профиля
 
     return render_template('checkout.html', offer=offer)
 
-@app.route('/orders')
-def orders():
-    """Страница с заказами пользователя."""
-    if not current_user.is_authenticated:
-        return redirect(url_for('login'))
-
-    # Получаем все заказы текущего пользователя
-    orders = Order.query.filter((Order.buyer_id == current_user.id) | (Order.seller_id == current_user.id)).all()
-
-    return render_template('orders.html', orders=orders)
 
 @app.route('/message/<int:receiver_id>/<int:offer_id>', methods=['GET', 'POST'])
 def message(receiver_id, offer_id):
