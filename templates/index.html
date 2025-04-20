@@ -7,7 +7,7 @@
     <div class="topics-layout">
         {% for category in categories %}
         <div class="topic-section mb-4">
-            <a href="{{ url_for('show_subtopic', subtopic=category.name) }}" class="main-topic">{{ category.name }}</a>
+            <a href="{{ url_for('show_subtopic', subtopic=category.subcategories[0].name) }}" class="main-topic">{{ category.name }}</a>
             <div class="subtopics-line mt-2">
                 {% for subcategory in category.subcategories %}
                 <a href="{{ url_for('show_subtopic', subtopic=subcategory.name) }}" class="subtopic">{{ subcategory.name }}</a>
