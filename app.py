@@ -6,7 +6,7 @@ from flask_login import LoginManager
 
 # Инициализация приложения Flask
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'your_secret_key'  
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///study_help.db'
 
 # Инициализация базы данных
