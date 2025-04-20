@@ -128,7 +128,7 @@ footer a:hover {
     color: #3e3e3e;
     font-weight: 500;
     transition: 0.2s;
-    text-decoration: none;  
+    text-decoration: none;
 }
 
 .subcategory-tab:hover {
@@ -305,4 +305,337 @@ footer a:hover {
 .subtopic:hover {
     color: #8e7b6f;
     padding-left: 10px;
+}
+
+/* Основной контейнер для страницы */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Гарантирует, что страница будет занимать всю высоту окна */
+    margin: 0; /* Убираем стандартные отступы */
+}
+
+.content {
+    flex-grow: 1; /* Этот блок будет растягиваться и занимать оставшееся пространство */
+    width: 100%; /* Расширяем на всю ширину */
+    box-sizing: border-box; /* Чтобы padding не вызывал переполнения */
+    padding-top: 80px; /* Отступ для контента, чтобы не перекрывать фиксированную шапку */
+    padding-bottom: 50px; /* Отступ для контента, чтобы не перекрывать фиксированный подвал */
+}
+
+.header {
+    position: fixed; /* Фиксируем шапку */
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #8e7b6f; /* Теплый серо-бежевый */
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    z-index: 1000; /* Чтобы шапка была поверх контента */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для визуального разделения */
+}
+
+.site-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+/* Контейнер для кнопок в шапке */
+.header-buttons {
+    display: flex;  /* Используем flexbox для горизонтального расположения */
+    align-items: center;  /* Выравнивание по вертикали */
+    gap: 1rem;  /* Промежуток между кнопками */
+    padding-right: 30px; /* Отступ справа от кнопок */
+}
+
+/* Стили для кнопок в шапке */
+.header-buttons a {
+    margin-left: 1rem;
+    color: white; /* Убедитесь, что цвет кнопок белый */
+    font-weight: bold;
+    transition: opacity 0.2s, text-decoration 0.2s; /* Плавное изменение подчеркивания */
+    text-decoration: none; /* Убираем подчеркивание по умолчанию */
+}
+
+.header-buttons a:hover {
+    opacity: 0.8;
+    text-decoration: underline; /* Подчеркивание при наведении */
+}
+
+.header-buttons a.active {
+    text-decoration: underline; /* Подчеркивание для активных ссылок */
+}
+
+/* Если кнопки белые, то при наведении сделаем их немного прозрачными */
+.header-buttons a:hover {
+    opacity: 0.8;
+    color: #f1f1f1; /* Немного светлее белого при наведении */
+}
+
+/* Футер */
+footer {
+    position: fixed; /* Фиксируем футер */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    z-index: 1000; /* Чтобы футер был поверх контента */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для подвала */
+}
+
+footer a {
+    text-decoration: none;
+    color: #6c757d; /* Серая ссылка для FAQ */
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Контейнер содержимого */
+.content {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    width: 100%; /* Обеспечиваем, чтобы контент занимал всю ширину */
+    box-sizing: border-box;
+}
+
+/* Страница темы */
+.tema-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #3e3e3e; /* Темный серый для заголовков */
+}
+
+/* Остальной CSS остаётся без изменений */
+
+.subcategory-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    text-decoration: none;
+}
+
+.subcategory-tab {
+    padding: 0.5rem 1.2rem;
+    background-color: #dcd3c2; /* Теплый песочный оттенок */
+    border-radius: 25px;
+    color: #3e3e3e;
+    font-weight: 500;
+    transition: 0.2s;
+    text-decoration: none;
+}
+
+.subcategory-tab:hover {
+    background-color: #b7a18b; /* Немного темнее для эффекта наведения */
+}
+
+.subcategory-tab.active {
+    background-color: #8e7b6f; /* Более темный оттенок для активного состояния */
+    color: white;
+}
+
+.subcategory-tab .count {
+    margin-left: 0.5rem;
+    font-weight: bold;
+}
+
+/* Сетка предложений */
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.offer-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.offer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.offer-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+}
+
+.offer-card .description {
+    font-size: 0.95rem;
+    color: #6b6b6b; /* Бледно-серый для описания */
+    margin-bottom: 0.75rem;
+}
+
+.offer-card .price {
+    font-weight: bold;
+    color: #a66c33; /* Теплый коричневый для цены */
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.offer-card .seller {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #555;
+}
+
+.offer-card .avatar {
+    width: 28px;
+    height: 28px;
+    background-color: #8e7b6f;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.offer-page-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap; /* Чтобы страницы были адаптивными */
+}
+
+.offer-left {
+    flex: 0 1 60%;
+}
+
+.offer-right {
+    flex: 0 1 35%;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.offer-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.offer-description {
+    margin-bottom: 1rem;
+}
+
+.offer-price {
+    margin-top: 1.5rem;
+}
+
+.buy-btn {
+    margin-top: 1rem;
+}
+
+/* Пустое сообщение */
+.empty-message {
+    text-align: center;
+    color: #888;
+    font-size: 1.1rem;
+    padding: 2rem 0;
+}
+
+/* Общий контейнер для раздела с темами */
+.topics-layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+/* Блок для каждой темы */
+.topic-section {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.topic-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Основное название темы */
+.main-topic {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #8e7b6f;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.main-topic:hover {
+    color: #5c4a39; /* Темный оттенок для наведения */
+}
+
+/* Линия с подкатегориями */
+.subtopics-line {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Ссылки подкатегорий */
+.subtopic {
+    font-size: 1rem;
+    color: #6c757d; /* Серый цвет для подкатегорий */
+    text-decoration: none;
+    padding: 5px 0;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.subtopic:hover {
+    color: #8e7b6f;
+    padding-left: 10px;
+}
+
+/* Убираем стандартный синий цвет и подчеркивание для всех ссылок */
+a {
+    color: inherit;  /* Наследуем цвет от родительского элемента */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+/* Убираем стандартный синий цвет ссылок, особенно в кнопках */
+a:hover {
+    color: inherit;  /* Наследуем цвет при наведении */
+    text-decoration: none; /* Убираем подчеркивание при наведении */
+}
+
+/* Для кнопок, если они содержат ссылку */
+.btn-primary {
+    background-color: #a66c33;
+    border-color: #a66c33;
+    color: white; /* Устанавливаем цвет текста в кнопке */
+}
+
+.btn-primary:hover {
+    background-color: #a66c33; /* Цвет кнопки при наведении */
+    border-color: #a66c33; /* Цвет рамки при наведении */
 }
