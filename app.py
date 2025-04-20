@@ -160,10 +160,20 @@ def create_offer():
 
 @app.route('/tema/<string:subtopic>')
 def show_subtopic(subtopic):
+    # Получаем имя категории для подкатегории
     category_name = get_category_for_subtopic(subtopic)
+
+    # Получаем список подкатегорий с количеством предложений в каждой
     subcategories = get_subcategories_with_counts(category_name)
 
-    offers = Offer.query.filter_by(subtopic=subtopic).order_by(Offer.id.desc()).all()
+    # Получаем подкатегорию по имени
+    subcategory = Subcategory.query.filter_by(name=subtopic).first()
+
+    # Если подкатегория найдена, фильтруем предложения по subcategory_id
+    if subcategory:
+        offers = Offer.query.filter_by(subcategory_id=subcategory.id).order_by(Offer.id.desc()).all()
+    else:
+        offers = []
 
     return render_template(
         'tema.html',
@@ -172,6 +182,7 @@ def show_subtopic(subtopic):
         subcategories=subcategories,
         offers=offers
     )
+
 
 @app.route('/profile')
 def profile():

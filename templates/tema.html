@@ -7,7 +7,7 @@
     <div class="subcategory-tabs">
         {% for sub in subcategories %}
         <a href="{{ url_for('show_subtopic', subtopic=sub.name) }}"
-           class="subcategory-tab {% if sub.name == subtopic %}active{% endif %}">
+           class="subcategory-tab {% if sub.name == subtopic_name %}active{% endif %}">
             {{ sub.name }} <span class="count">{{ sub.count }}</span>
         </a>
         {% endfor %}
@@ -35,7 +35,7 @@
     </div>
     {% else %}
     <div class="empty-message">
-        Пока нет предложений в этой категории
+        Пока нет предложений в этой подкатегории
     </div>
     {% endif %}
 </div>
