@@ -130,14 +130,19 @@ def register():
     """Регистрация нового пользователя."""
     if request.method == 'POST':
         username = request.form['username']
-        password = generate_password_hash(request.form['password'])
+        password = request.form['password']
+        repassword = request.form['repassword']
 
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             flash('Имя пользователя уже занято, пожалуйста, выберите другое имя.', 'danger')
             return redirect(url_for('register'))
+        
+        if password != repassword:
+            flash('Пароли на совпадают.', 'danger')
+            return redirect(url_for('register'))
 
-        user = User(username=username, password=password)
+        user = User(username=username, password=generate_password_hash(password))
         db.session.add(user)
         db.session.commit()
         flash('Регистрация успешна! Пожалуйста, войдите в систему.', 'success')
