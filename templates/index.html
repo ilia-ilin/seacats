@@ -5,12 +5,12 @@
     <h1 class="mb-4 text-center">Выберите тему</h1>
 
     <div class="topics-layout">
-        {% for category, subtopics in categories.items() %}
+        {% for category in categories %}
         <div class="topic-section mb-4">
-            <a href="{{ url_for('show_subtopic', subtopic=category) }}" class="main-topic">{{ category }}</a>
+            <a href="{{ url_for('show_subtopic', subtopic=category.name) }}" class="main-topic">{{ category.name }}</a>
             <div class="subtopics-line mt-2">
-                {% for subtopic in subtopics %}
-                <a href="{{ url_for('show_subtopic', subtopic=subtopic) }}" class="subtopic">{{ subtopic }}</a>
+                {% for subcategory in category.subcategories %}
+                <a href="{{ url_for('show_subtopic', subtopic=subcategory.name) }}" class="subtopic">{{ subcategory.name }}</a>
                 {% endfor %}
             </div>
         </div>

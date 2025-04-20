@@ -11,21 +11,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///study_help.db'
 # Инициализация базы данных
 db = SQLAlchemy(app)
 
-# Конфигурация категорий и подкатегорий
-CATEGORIES = {
-    'Математика': ['Алгебра', 'Геометрия', 'Матанализ'],
-    'Программирование': ['Python', 'Web-разработка', 'Базы данных'],
-    'Иностранные языки': ['Английский', 'Немецкий', 'Французский'],
-    'Другие предметы': ['Физика', 'Химия', 'История']
-}
-
-# Обратное отображение подкатегорий к категориям
-SUBCATEGORY_TO_CATEGORY = {
-    subtopic: category
-    for category, subtopics in CATEGORIES.items()
-    for subtopic in subtopics
-}
-
 # Модели базы данных
 
 class User(db.Model):
@@ -35,13 +20,25 @@ class User(db.Model):
     password = db.Column(db.String(150), nullable=False)
     offers = db.relationship('Offer', backref='seller', lazy=True)  # связь с предложениями
 
+class Category(db.Model):
+    """Модель категории."""
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    subcategories = db.relationship('Subcategory', backref='category', lazy=True)
+
+class Subcategory(db.Model):
+    """Модель подкатегории."""
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+
 class Offer(db.Model):
     """Модель предложения."""
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
-    subtopic = db.Column(db.String(50))  # Изменено на строковый тип
+    subcategory_id = db.Column(db.Integer, db.ForeignKey('subcategory.id'), nullable=False)
     seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class Message(db.Model):
@@ -58,24 +55,44 @@ class Message(db.Model):
 # Вспомогательные функции
 def get_subcategories_with_counts(category_name):
     """Возвращает подкатегории с количеством предложений"""
-    return [
-        {
-            'name': subtopic,
-            'count': Offer.query.filter_by(subtopic=subtopic).count()
-        }
-        for subtopic in CATEGORIES.get(category_name, [])
-    ]
+    category = Category.query.filter_by(name=category_name).first()
+    subcategories = []
+    if category:
+        subcategories = [
+            {
+                'name': subcategory.name,
+                'count': Offer.query.filter_by(subcategory_id=subcategory.id).count()
+            }
+            for subcategory in category.subcategories
+        ]
+    return subcategories
 
 def get_category_for_subtopic(subtopic):
     """Возвращает категорию для подкатегории"""
-    return SUBCATEGORY_TO_CATEGORY.get(subtopic, 'Другие предметы')
+    subcategory = Subcategory.query.filter_by(name=subtopic).first()
+    if subcategory:
+        return subcategory.category.name
+    return 'Другие предметы'
+
 
 # Маршруты и представления
-
 @app.route('/')
 def home():
     """Главная страница с категориями и подкатегориями."""
-    return render_template('index.html', categories=CATEGORIES)
+    categories = Category.query.all()
+    # Формируем структуру данных для отображения категорий с подкатегориями
+    category_data = [
+        {
+            'name': category.name,
+            'subcategories': [
+                {'name': subcategory.name, 'count': Offer.query.filter_by(subcategory_id=subcategory.id).count()}
+                for subcategory in category.subcategories
+            ]
+        }
+        for category in categories
+    ]
+    return render_template('index.html', categories=category_data)
+
 
 
 
@@ -117,18 +134,28 @@ def create_offer():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
+        subcategory_name = request.form['subtopic']
+        subcategory = Subcategory.query.filter_by(name=subcategory_name).first()
+
         offer = Offer(
             title=request.form['title'],
             description=request.form['description'],
             price=float(request.form['price']),
-            subtopic=request.form['subtopic'],
+            subcategory_id=subcategory.id,
             seller_id=session['user_id']
         )
         db.session.add(offer)
         db.session.commit()
         return redirect(url_for('profile'))
 
-    return render_template('create_offer.html', categories=CATEGORIES)
+    categories = Category.query.all()
+    # Формируем структуру словаря категорий с подкатегориями
+    categories_dict = {}
+    for category in categories:
+        subcategories = Subcategory.query.filter_by(category_id=category.id).all()
+        categories_dict[category.name] = [sub.name for sub in subcategories]
+
+    return render_template('create_offer.html', categories=categories_dict)
 
 
 @app.route('/tema/<string:subtopic>')
