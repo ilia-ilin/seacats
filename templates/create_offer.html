@@ -47,17 +47,15 @@
 </div>
 
 <script>
-// Данные для категорий и подкатегорий
 const categories = {
     {% for category, subtopics in categories.items() %}
     '{{ category }}': [{% for subtopic in subtopics %}'{{ subtopic }}'{% if not loop.last %}, {% endif %}{% endfor %}],
     {% endfor %}
 };
 
-// Обработчик изменения категории
 document.getElementById('category').addEventListener('change', function() {
     const subtopicSelect = document.getElementById('subtopic');
-    subtopicSelect.innerHTML = '<option value="">Выберите подкатегорию</option>';
+    subtopicSelect.innerHTML = '<option value="">
     subtopicSelect.disabled = !this.value;
 
     if (this.value) {

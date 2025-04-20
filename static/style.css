@@ -415,3 +415,24 @@ footer {
     font-size: 1.25rem !important;
     font-weight: bold !important;
 }
+
+.message {
+    border: 1px solid #ddd;  /* Рамка */
+    padding: 15px;            /* Внутренние отступы */
+    margin-bottom: 10px;      /* Отступы между сообщениями */
+    border-radius: 10px;      /* Округлые углы */
+    background-color: #f9f9f9; /* Светлый фон */
+}
+
+.message p {
+    margin: 10px 0;  /* Отступы между текстом и датой */
+}
+
+textarea {
+    border-radius: 10px;  /* Округлые углы для текстового поля */
+}
+
+button {
+    width: 100%;          /* Кнопка на всю ширину */
+    border-radius: 5px;   /* Округлые углы кнопки */
+}

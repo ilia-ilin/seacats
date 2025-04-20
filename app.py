@@ -1,4 +1,3 @@
-import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session, flash, abort
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from flask_sqlalchemy import SQLAlchemy
@@ -64,9 +63,12 @@ class Message(db.Model):
     receiver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     text = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, server_default=db.func.now())
+    offer_id = db.Column(db.Integer, db.ForeignKey('offer.id'), nullable=False)  # Связь с предложением
 
     sender = db.relationship('User', foreign_keys=[sender_id], backref='sent_messages')
     receiver = db.relationship('User', foreign_keys=[receiver_id], backref='received_messages')
+    offer = db.relationship('Offer', backref='messages')
+
 
 class Review(db.Model):
     """Модель отзыва."""
@@ -110,7 +112,6 @@ def get_category_for_subtopic(subtopic):
 def home():
     """Главная страница с категориями и подкатегориями."""
     categories = Category.query.all()
-    # Формируем структуру данных для отображения категорий с подкатегориями
     category_data = [
         {
             'name': category.name,
@@ -131,13 +132,11 @@ def register():
         username = request.form['username']
         password = generate_password_hash(request.form['password'])
 
-        # Проверяем, существует ли уже пользователь с таким именем
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             flash('Имя пользователя уже занято, пожалуйста, выберите другое имя.', 'error')
-            return redirect(url_for('register'))  # Перенаправляем обратно на страницу регистрации
+            return redirect(url_for('register'))
 
-        # Создаем нового пользователя
         user = User(username=username, password=password)
         db.session.add(user)
         db.session.commit()
@@ -190,7 +189,6 @@ def create_offer():
         return redirect(url_for('profile'))
 
     categories = Category.query.all()
-    # Формируем структуру словаря категорий с подкатегориями
     categories_dict = {}
     for category in categories:
         subcategories = Subcategory.query.filter_by(category_id=category.id).all()
@@ -201,16 +199,10 @@ def create_offer():
 
 @app.route('/tema/<string:subtopic>')
 def show_subtopic(subtopic):
-    # Получаем имя категории для подкатегории
     category_name = get_category_for_subtopic(subtopic)
-
-    # Получаем список подкатегорий с количеством предложений в каждой
     subcategories = get_subcategories_with_counts(category_name)
-
-    # Получаем подкатегорию по имени
     subcategory = Subcategory.query.filter_by(name=subtopic).first()
 
-    # Если подкатегория найдена, фильтруем предложения по subcategory_id
     if subcategory:
         offers = Offer.query.filter_by(subcategory_id=subcategory.id).order_by(Offer.id.desc()).all()
     else:
@@ -232,15 +224,13 @@ def profile(user_id):
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
 
-    # Если user_id не передан, показываем профиль текущего пользователя
     if user_id is None:
         user = current_user
     else:
-        user = User.query.get_or_404(user_id)  # Иначе показываем профиль другого пользователя
+        user = User.query.get_or_404(user_id)
 
     offers = Offer.query.filter_by(seller_id=user.id).all()
 
-    # Получаем все отзывы о пользователе
     reviews = Review.query.filter_by(user_id=user.id).all()
 
     return render_template('profile.html', user=user, offers=offers, reviews=reviews)
@@ -258,7 +248,6 @@ def create_review(user_id):
         rating = int(request.form['rating'])
         text = request.form['text']
 
-        # Создаем новый отзыв
         review = Review(rating=rating, text=text, user_id=user_to_review.id, reviewer_id=current_user.id)
         db.session.add(review)
         db.session.commit()
@@ -269,18 +258,40 @@ def create_review(user_id):
     return render_template('create_review.html', user=user_to_review)
 
 
-@app.route('/offer/<int:offer_id>')
+@app.route('/offer/<int:offer_id>', methods=['GET', 'POST'])
 def offer(offer_id):
-    """Просмотр конкретного предложения."""
+    """Просмотр конкретного предложения и чата с продавцом."""
     offer = Offer.query.get_or_404(offer_id)
-    return render_template('offer.html', offer=offer)
+
+    if request.method == 'POST':
+        text = request.form['text']
+        if not current_user.is_authenticated:
+            flash("Пожалуйста, войдите для отправки сообщений.", "error")
+            return redirect(url_for('login'))
+
+        receiver_id = offer.seller.id if current_user.id != offer.seller.id else offer.seller.id
+
+        new_message = Message(sender_id=current_user.id, receiver_id=receiver_id, text=text, offer_id=offer.id)
+        db.session.add(new_message)
+        db.session.commit()
+
+        flash("Сообщение отправлено!", "success")
+        return redirect(url_for('offer', offer_id=offer.id))
+
+    messages = Message.query.filter(
+        ((Message.sender_id == current_user.id) & (Message.receiver_id == offer.seller.id)) |
+        ((Message.sender_id == offer.seller.id) & (Message.receiver_id == current_user.id))
+    ).order_by(Message.timestamp).all()
+
+    return render_template('offer.html', offer=offer, messages=messages)
+
 
 
 @app.route('/edit_offer/<int:offer_id>', methods=['GET', 'POST'])
 def edit_offer(offer_id):
     offer = Offer.query.get_or_404(offer_id)
     if offer.seller_id != current_user.id:
-        abort(403)  # Only the seller can edit their own offer
+        abort(403)
 
     if request.method == 'POST':
         offer.title = request.form['title']
@@ -303,7 +314,6 @@ def checkout(offer_id):
     offer = Offer.query.get_or_404(offer_id)
 
     if request.method == 'POST':
-        # Логика оформления заказа
         flash('Покупка успешно оформлена!', 'success')
         return redirect(url_for('home'))  # или на страницу профиля
 
@@ -322,19 +332,30 @@ def message(receiver_id):
 
     receiver = User.query.get_or_404(receiver_id)
 
-    if request.method == 'POST':
-        text = request.form['text']
-        new_msg = Message(sender_id=sender_id, receiver_id=receiver_id, text=text)
-        db.session.add(new_msg)
-        db.session.commit()
-        return redirect(url_for('message', receiver_id=receiver_id))
-
     messages = Message.query.filter(
         ((Message.sender_id == sender_id) & (Message.receiver_id == receiver_id)) |
         ((Message.sender_id == receiver_id) & (Message.receiver_id == sender_id))
     ).order_by(Message.timestamp).all()
 
-    return render_template('message.html', messages=messages, receiver=receiver)
+    offer = Offer.query.filter_by(id=messages[0].offer_id).first() if messages else None
+
+    if request.method == 'POST':
+        message_text = request.form['text']
+
+        if message_text:
+            new_message = Message(
+                sender_id=sender_id,
+                receiver_id=receiver_id,
+                text=message_text,
+                offer_id=offer.id if offer else None
+            )
+            db.session.add(new_message)
+            db.session.commit()
+
+            return redirect(url_for('message', receiver_id=receiver_id))
+
+    return render_template('message.html', messages=messages, receiver=receiver, offer=offer)
+
 
 
 @app.route('/messages')
@@ -345,28 +366,24 @@ def messages():
 
     user_id = current_user.id
 
-    # Получаем уникальных собеседников
     partner_ids = db.session.query(
         Message.sender_id, Message.receiver_id
     ).filter(
         (Message.sender_id == user_id) | (Message.receiver_id == user_id)
     ).all()
 
-    # Извлекаем ID собеседников и находим их в базе данных
     partners = set()
     for partner_id1, partner_id2 in partner_ids:
         partners.add(partner_id1)
         partners.add(partner_id2)
 
-    # Исключаем текущего пользователя
     partners.discard(user_id)
     partner_users = User.query.filter(User.id.in_(partners)).all()
 
     return render_template('messages.html', partners=partner_users)
 
 
-# Запуск приложения
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()  # Создание базы данных при запуске приложения
+        db.create_all() 
     app.run(debug=True)
