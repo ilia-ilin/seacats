@@ -1,0 +1,19 @@
+<!-- search_results.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Результаты поиска для: "{{ query }}"</h1>
+
+  {% if offers %}
+    <ul>
+      {% for offer in offers %}
+        <li>
+          <a href="{{ url_for('offer', offer_id=offer.id) }}">{{ offer.title }}</a>
+          - {{ offer.price }} ₽
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Предложения не найдены по запросу "{{ query }}".</p>
+  {% endif %}
+{% endblock %}

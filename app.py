@@ -402,12 +402,13 @@ def messages():
 def search_offers():
     query = request.args.get('query')
     if query:
-        # Поиск предложений по имени
-        offers = Offer.query.filter(Offer.name.ilike(f'%{query}%')).all()
+        offers = Offer.query.filter(Offer.title.ilike(f'%{query}%')).all()
     else:
         offers = []
 
     return render_template('search_results.html', offers=offers, query=query)
+
+
 
 
 
