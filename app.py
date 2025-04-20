@@ -294,14 +294,13 @@ def offer(offer_id):
 
         return redirect(url_for('offer', offer_id=offer.id))
 
-    # Проверка на авторизацию перед использованием current_user.id
     if current_user.is_authenticated:
         messages = Message.query.filter(
-            ((Message.sender_id == current_user.id) & (Message.receiver_id == offer.seller.id)) |
-            ((Message.sender_id == offer.seller.id) & (Message.receiver_id == current_user.id))
+            Message.offer_id == offer_id,
+            (Message.sender_id == current_user.id) | (Message.receiver_id == current_user.id)
         ).order_by(Message.timestamp).all()
     else:
-        messages = []  # Пустой список, если пользователь не авторизован
+        messages = []
 
     return render_template('offer.html', offer=offer, messages=messages)
 
@@ -340,9 +339,9 @@ def checkout(offer_id):
     return render_template('checkout.html', offer=offer)
 
 
-@app.route('/message/<int:receiver_id>', methods=['GET', 'POST'])
-def message(receiver_id):
-    """Обработка сообщений между пользователями."""
+@app.route('/message/<int:receiver_id>/<int:offer_id>', methods=['GET', 'POST'])
+def message(receiver_id, offer_id):
+    """Обработка сообщений между пользователями для конкретного предложения."""
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
 
@@ -351,13 +350,13 @@ def message(receiver_id):
         return redirect(url_for('profile'))
 
     receiver = User.query.get_or_404(receiver_id)
+    offer = Offer.query.get_or_404(offer_id)
 
+    # Получаем все сообщения для данного предложения
     messages = Message.query.filter(
-        ((Message.sender_id == sender_id) & (Message.receiver_id == receiver_id)) |
-        ((Message.sender_id == receiver_id) & (Message.receiver_id == sender_id))
+        ((Message.sender_id == sender_id) & (Message.receiver_id == receiver_id) & (Message.offer_id == offer_id)) |
+        ((Message.sender_id == receiver_id) & (Message.receiver_id == sender_id) & (Message.offer_id == offer_id))
     ).order_by(Message.timestamp).all()
-
-    offer = Offer.query.filter_by(id=messages[0].offer_id).first() if messages else None
 
     if request.method == 'POST':
         message_text = request.form['text']
@@ -367,15 +366,13 @@ def message(receiver_id):
                 sender_id=sender_id,
                 receiver_id=receiver_id,
                 text=message_text,
-                offer_id=offer.id if offer else None
+                offer_id=offer.id
             )
             db.session.add(new_message)
             db.session.commit()
-            return redirect(url_for('message', receiver_id=receiver_id))
+            return redirect(url_for('message', receiver_id=receiver_id, offer_id=offer.id))
 
     return render_template('message.html', messages=messages, receiver=receiver, offer=offer)
-
-
 
 @app.route('/messages')
 def messages():
@@ -383,23 +380,28 @@ def messages():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
 
-    user_id = current_user.id
-
-    partner_ids = db.session.query(
-        Message.sender_id, Message.receiver_id
-    ).filter(
-        (Message.sender_id == user_id) | (Message.receiver_id == user_id)
+    # Получаем все сообщения для текущего пользователя
+    messages = Message.query.filter(
+        (Message.sender_id == current_user.id) | (Message.receiver_id == current_user.id)
     ).all()
 
-    partners = set()
-    for partner_id1, partner_id2 in partner_ids:
-        partners.add(partner_id1)
-        partners.add(partner_id2)
+    # Создаем список чатов для каждого предложения
+    chats = []
+    for msg in messages:
+        offer = msg.offer
+        other_user = offer.seller if current_user.id != offer.seller.id else offer.buyer
 
-    partners.discard(user_id)
-    partner_users = User.query.filter(User.id.in_(partners)).all()
+        # Проверяем, чтобы добавлять уникальные чаты для каждого предложения
+        if offer not in [chat['offer'] for chat in chats]:
+            chats.append({
+                'offer': offer,
+                'other_user': other_user
+            })
 
-    return render_template('messages.html', partners=partner_users)
+    return render_template('messages.html', chats=chats)
+
+
+
 
 @app.route('/search', methods=['GET'])
 def search_offers():
