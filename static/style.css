@@ -332,7 +332,11 @@ a:hover {
     color: white; /* Устанавливаем цвет текста в кнопке */
 }
 
-.btn-primary:hover,
+.btn-primary:hover{
+    background-color: #ac7c49 !important;
+    border-color: #a66c33 !important;
+}
+
 .btn-primary:active {
     background-color: #a66c33 !important;
     border-color: #a66c33 !important;
