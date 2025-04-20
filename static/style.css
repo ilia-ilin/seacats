@@ -311,6 +311,7 @@ footer a:hover {
     height: calc(100vh - 200px); /* 200px - отступ для других элементов */
     overflow-y: auto; /* Включить вертикальную прокрутку */
     padding-right: 10px; /* Чтобы текст не прилипал к скроллбару */
+    padding-left: 10px; /* Чтобы текст не прилипал к скроллбару */
 }
 
 a {
@@ -334,4 +335,8 @@ a:hover {
 .btn-primary:hover {
     background-color: #a66c33; /* Цвет кнопки при наведении */
     border-color: #a66c33; /* Цвет рамки при наведении */
+}
+
+.bg-custom {
+    background-color: #b18c5f;
 }
