@@ -134,7 +134,7 @@ def register():
 
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            flash('Имя пользователя уже занято, пожалуйста, выберите другое имя.', 'error')
+            flash('Имя пользователя уже занято, пожалуйста, выберите другое имя.', 'danger')
             return redirect(url_for('register'))
 
         user = User(username=username, password=password)
@@ -156,7 +156,7 @@ def login():
             login_user(user)  # Логиним пользователя
             return redirect(url_for('home'))
         else:
-            flash('Неверное имя пользователя или пароль', 'error')  # Сообщение об ошибке
+            flash('Неверное имя пользователя или пароль', 'danger')  # Сообщение об ошибке
     return render_template('login.html')
 
 
@@ -279,7 +279,7 @@ def offer(offer_id):
     if request.method == 'POST':
         text = request.form['text']
         if not current_user.is_authenticated:
-            flash("Пожалуйста, войдите для отправки сообщений.", "error")
+            flash("Пожалуйста, войдите для отправки сообщений.", "danger")
             return redirect(url_for('login'))
 
         receiver_id = offer.seller.id if current_user.id != offer.seller.id else offer.seller.id
