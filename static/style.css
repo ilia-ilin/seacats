@@ -327,7 +327,7 @@ a:hover {
 
 /* Для кнопок, если они содержат ссылку */
 .btn-primary {
-    background-color: #a66c33;
+    background-color: #b18c5f;
     border-color: #a66c33;
     color: white; /* Устанавливаем цвет текста в кнопке */
 }

@@ -6,6 +6,7 @@
         <div class="card-header bg-custom text-white rounded-top-4">
             <h5 class="mb-0">Вход</h5>
         </div>
+        <div class="card-body">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -18,7 +19,7 @@
             {% endif %}
         {% endwith %}
 
-        <form method="POST" class="p-4 border rounded bg-light">
+        <form method="POST">
             <div class="mb-3">
                 <label for="username" class="form-label">Имя пользователя</label>
                 <input type="text" id="username" name="username" class="form-control" required>
@@ -31,6 +32,7 @@
 
             <button type="submit" class="btn btn-primary w-100">Войти</button>
         </form>
+        </div>
     </div>
 </div>
 {% endblock %}
