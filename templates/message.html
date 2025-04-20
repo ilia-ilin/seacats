@@ -1,50 +1,37 @@
+<!-- message.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="list-group">
-        {% for partner in partners %}
-            <a href="{{ url_for('message', receiver_id=partner.id) }}" class="list-group-item list-group-item-action">
-                <strong>
-                    <a href="{{ url_for('profile', user_id=partner.id) }}">{{ partner.username }}</a>
-                </strong>
-            </a>
-        {% endfor %}
-    </div>
-
-    
-    <!-- Имя собеседника должно быть сверху -->
+<div class="container">
     <h3>Сообщения с <a href="{{ url_for('profile', user_id=receiver.id) }}">{{ receiver.username }}</a></h3>
-    <div class="card shadow rounded-4">
-        <!-- Перемещаем предложение сюда, под имя собеседника -->
-        {% if offer %}
-        <!-- <div class="offer-info mt-4"> -->
-        <div class="card-header bg-custom text-white rounded-top-4">
-            <h4>Предложение:</h4>
-            <p><strong><a href="{{ url_for('offer', offer_id=offer.id) }}">{{ offer.title }}</a></strong></p>
-        </div>
-        {% endif %}
 
-        <div class="message-container">
-            <div class="messages">
-                {% for msg in messages %}
-                    <div class="message border p-3 mb-2 rounded">
-                        <strong><a href="{{ url_for('profile', user_id=msg.sender.id) }}">{{ msg.sender.username }}</a>:</strong>
-                        <p>{{ msg.text }}</p>
-                        <small class="text-muted">{{ msg.timestamp }}</small>
-                    </div>
-                {% endfor %}
-            </div>
+    <!-- Информация о предложении -->
+    {% if offer %}
+    <div class="card-header bg-custom text-white rounded-top-4">
+        <h4>Предложение:</h4>
+        <p><strong><a href="{{ url_for('offer', offer_id=offer.id) }}">{{ offer.title }}</a></strong></p>
+    </div>
+    {% endif %}
+
+    <div class="message-container">
+        <div class="messages">
+            {% for msg in messages %}
+                <div class="message border p-3 mb-2 rounded">
+                    <strong><a href="{{ url_for('profile', user_id=msg.sender.id) }}">{{ msg.sender.username }}</a>:</strong>
+                    <p>{{ msg.text }}</p>
+                    <small class="text-muted">{{ msg.timestamp }}</small>
+                </div>
+            {% endfor %}
         </div>
     </div>
-        <form method="POST" id="message-form">
-            <div class="form-group">
-                <label for="message-text">Ваше сообщение:</label>
-                <textarea class="form-control" id="message-text" name="text" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary mt-2">Отправить</button>
-        </form>
-    
+
+    <form method="POST" id="message-form">
+        <div class="form-group">
+            <label for="message-text">Ваше сообщение:</label>
+            <textarea class="form-control" id="message-text" name="text" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Отправить</button>
+    </form>
 </div>
 
 <script>

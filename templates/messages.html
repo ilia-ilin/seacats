@@ -1,14 +1,18 @@
+<!-- messages.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2>Мои сообщения</h2>
-    <div class="list-group">
-        {% for partner in partners %}
-            <a href="{{ url_for('message', receiver_id=partner.id) }}" class="list-group-item list-group-item-action">
-                <strong>{{ partner.username }}</strong>
-            </a>
+<div class="container">
+    <h2>Чаты</h2>
+    <ul class="list-group">
+        {% for chat in chats %}
+            <li class="list-group-item">
+                <!-- Ссылка на чат с продавцом или покупателем по конкретному предложению -->
+                <a href="{{ url_for('message', receiver_id=chat.other_user.id, offer_id=chat.offer.id) }}">
+                    {{ chat.other_user.username }} - {{ chat.offer.title }}
+                </a>
+            </li>
         {% endfor %}
-    </div>
+    </ul>
 </div>
 {% endblock %}
