@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="profile-container">
-    <h1>Профиль пользователя: {{ user.username }}</h1>
+<div class="profile-container container mt-4">
+    <h1 class="mb-4">Профиль пользователя: {{ user.username }}</h1>
 
-    <!-- Показываем кнопку только для текущего пользователя -->
     {% if user == current_user %}
-    <div class="create-offer-button">
+    <div class="create-offer-button mb-4">
         <a href="{{ url_for('create_offer') }}" class="btn btn-primary">Создать предложение</a>
     </div>
     {% endif %}
 
-    <!-- Условие для отображения заголовка -->
     <h2>
         {% if user == current_user %}
             Мои предложения
@@ -20,32 +18,45 @@
         {% endif %}
     </h2>
 
-    <div class="offers-list">
+    <div class="offers-list mb-4">
         {% for offer in offers %}
-        <div class="offer-card">
+        <div class="offer-card mb-3 p-4 border rounded shadow-sm">
             <h3>{{ offer.title }}</h3>
             <p>{{ offer.description }}</p>
-            <p>Цена: {{ offer.price }} руб.</p>
-            <a href="{{ url_for('offer', offer_id=offer.id) }}" class="btn btn-detail">Подробнее</a>
+            <p class="text-muted">Цена: {{ offer.price }} руб.</p>
+            <a href="{{ url_for('offer', offer_id=offer.id) }}" class="btn btn-detail btn-primary">Подробнее</a>
         </div>
         {% endfor %}
     </div>
 
-    <!-- Раздел с отзывами о продавце -->
     <h2>Отзывы о пользователе</h2>
     {% if reviews %}
-    <div class="reviews-list">
+    <div class="reviews-list mb-4">
         {% for review in reviews %}
-        <div class="review-card">
+        <div class="review-card mb-3 p-4 border rounded shadow-sm">
             <p><strong>Оценка: {{ review.rating }} / 5</strong></p>
             <p>{{ review.text }}</p>
-            <p><small>От: {{ review.reviewer.username }}</small></p>
+            <p><small>От: <a href="{{ url_for('profile', username=review.reviewer.username) }}">{{ review.reviewer.username }}</a></small></p>
         </div>
         {% endfor %}
     </div>
     {% else %}
-    <p>Отзывов еще нет.</p>
+    <p class="alert alert-info">Отзывов еще нет.</p>
     {% endif %}
 
+    {% if user != current_user %}
+    <h3>Оставьте отзыв:</h3>
+    <form method="POST" class="mb-4">
+        <div class="form-group mb-3">
+            <label for="rating">Оценка (1-5):</label>
+            <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="text">Ваш отзыв:</label>
+            <textarea class="form-control" id="text" name="text" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Оставить отзыв</button>
+    </form>
+    {% endif %}
 </div>
 {% endblock %}

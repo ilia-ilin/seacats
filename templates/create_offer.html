@@ -55,7 +55,7 @@ const categories = {
 
 document.getElementById('category').addEventListener('change', function() {
     const subtopicSelect = document.getElementById('subtopic');
-    subtopicSelect.innerHTML = '<option value="">
+    subtopicSelect.innerHTML = '<option value="">Сначала выберите подкатегорию</option>';
     subtopicSelect.disabled = !this.value;
 
     if (this.value) {

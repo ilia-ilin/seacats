@@ -28,7 +28,7 @@
         </div>
 
         <!-- Правая часть (чат с продавцом) -->
-        <div class="col-lg-4 col-md-4 col-sm-12 mt-4 mt-md-0">
+        <div class="col-lg-5 col-md-5 col-sm-12 mt-4 mt-md-0">
             {% if offer.seller %}
                 {% if current_user.is_authenticated and current_user.id != offer.seller.id %}
                 <div class="card shadow-sm">
@@ -37,10 +37,14 @@
                             {{ offer.seller.username }}
                         </a>
                     </div>
-                    <div class="card-body" style="height: 200px; overflow-y: auto;">
+                    <div class="card-body" style="height: 400px; overflow-y: auto;">
                         {% for message in messages %}
                             <div class="message">
-                                <strong>{{ message.sender.username }}:</strong>
+                                <strong>
+                                    <a href="{{ url_for('profile', user_id=message.sender.id) }}" class="text-decoration-none">
+                                        {{ message.sender.username }}
+                                    </a>:
+                                </strong>
                                 <p>{{ message.text }}</p>
                             </div>
                         {% endfor %}

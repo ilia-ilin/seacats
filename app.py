@@ -217,8 +217,8 @@ def show_subtopic(subtopic):
     )
 
 
-@app.route('/profile', defaults={'user_id': None})
-@app.route('/profile/<int:user_id>')
+@app.route('/profile', defaults={'user_id': None}, methods=['GET', 'POST'])
+@app.route('/profile/<int:user_id>', methods=['GET', 'POST'])
 def profile(user_id):
     """Профиль пользователя и его предложения."""
     if not current_user.is_authenticated:
@@ -230,8 +230,21 @@ def profile(user_id):
         user = User.query.get_or_404(user_id)
 
     offers = Offer.query.filter_by(seller_id=user.id).all()
-
     reviews = Review.query.filter_by(user_id=user.id).all()
+
+    if request.method == 'POST' and user != current_user:
+        rating = request.form['rating']
+        text = request.form['text']
+
+        # Создаем новый отзыв
+        new_review = Review(rating=rating, text=text, user_id=user.id, reviewer_id=current_user.id)
+
+        # Сохраняем в базе данных
+        db.session.add(new_review)
+        db.session.commit()
+
+        flash('Отзыв успешно добавлен!', 'success')
+        return redirect(url_for('profile', user_id=user.id))
 
     return render_template('profile.html', user=user, offers=offers, reviews=reviews)
 
