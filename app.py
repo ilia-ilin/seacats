@@ -270,6 +270,18 @@ def create_review(user_id):
 
     return render_template('create_review.html', user=user_to_review)
 
+@app.route('/orders')
+def orders():
+    """Страница с заказами пользователя."""
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    # Получаем все заказы текущего пользователя
+    orders = Order.query.filter((Order.buyer_id == current_user.id) | (Order.seller_id == current_user.id)).all()
+
+    return render_template('orders.html', orders=orders)
+
+
 @app.route('/offer/<int:offer_id>', methods=['GET', 'POST'])
 def offer(offer_id):
     """Просмотр конкретного предложения и чата с продавцом."""
