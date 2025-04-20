@@ -1,20 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Предложения</h1>
-    <div class="offers">
-        {% for offer in offers %}
-            <div class="offer-card">
-                <a href="{{ url_for('offer', offer_id=offer.id) }}" class="offer-content">
-                    <div class="product-title">{{ offer.title }}</div>
-                    <div class="description">{{ offer.description }}</div>
-                    <div class="price">₽ {{ offer.price }}</div>
-                </a>
-                <a href="{{ url_for('profile') }}" class="seller-profile">
-                    <div class="profile-circle">{{ offer.seller.username[0] }}</div>
-                    <div>{{ offer.seller.username }}</div>
-                </a>
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Выберите тему</h1>
+
+    <div class="topics-layout">
+        <!-- Математика -->
+        <div class="topic-section mb-4">
+            <a href="{{ url_for('show_subtopic', subtopic='Алгебра') }}" class="main-topic">Математика</a>
+            <div class="subtopics-line mt-2">
+                <a href="{{ url_for('show_subtopic', subtopic='Алгебра') }}" class="subtopic">Алгебра</a>
+                <a href="{{ url_for('show_subtopic', subtopic='Геометрия') }}" class="subtopic">Геометрия</a>
+                <a href="{{ url_for('show_subtopic', subtopic='Матанализ') }}" class="subtopic">Матанализ</a>
             </div>
-        {% endfor %}
+        </div>
+
+        <!-- Программирование -->
+        <div class="topic-section mb-4">
+            <a href="{{ url_for('show_subtopic', subtopic='Python') }}" class="main-topic">Программирование</a>
+            <div class="subtopics-line mt-2">
+                <a href="{{ url_for('show_subtopic', subtopic='Python') }}" class="subtopic">Python</a>
+                <a href="{{ url_for('show_subtopic', subtopic='Web-разработка') }}" class="subtopic">Web-разработка</a>
+                <a href="{{ url_for('show_subtopic', subtopic='Базы данных') }}" class="subtopic">Базы данных</a>
+            </div>
+        </div>
+
+        <!-- Иностранные языки -->
+        <div class="topic-section mb-4">
+            <a href="{{ url_for('show_subtopic', subtopic='Английский') }}" class="main-topic">Иностранные языки</a>
+            <div class="subtopics-line mt-2">
+                <a href="{{ url_for('show_subtopic', subtopic='Английский') }}" class="subtopic">Английский</a>
+                <a href="{{ url_for('show_subtopic', subtopic='Немецкий') }}" class="subtopic">Немецкий</a>
+                <a href="{{ url_for('show_subtopic', subtopic='Французский') }}" class="subtopic">Французский</a>
+            </div>
+        </div>
+
+        <!-- Другие предметы -->
+        <div class="topic-section mb-4">
+            <a href="{{ url_for('show_subtopic', subtopic='Физика') }}" class="main-topic">Другие предметы</a>
+            <div class="subtopics-line mt-2">
+                <a href="{{ url_for('show_subtopic', subtopic='Физика') }}" class="subtopic">Физика</a>
+                <a href="{{ url_for('show_subtopic', subtopic='Химия') }}" class="subtopic">Химия</a>
+                <a href="{{ url_for('show_subtopic', subtopic='История') }}" class="subtopic">История</a>
+            </div>
+        </div>
     </div>
+</div>
 {% endblock %}

@@ -1,25 +1,75 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="create-offer-container">
-        <h1 class="create-offer-title">Создать новое предложение</h1>
-        <form method="POST" class="offer-form">
-            <div class="form-group">
+<div class="container my-5">
+    <div class="create-offer-container mx-auto p-4 shadow rounded bg-white" style="max-width: 600px;">
+        <h2 class="text-center mb-4">Создать новое предложение</h2>
+        <form method="POST">
+            <div class="mb-3">
                 <label for="title" class="form-label">Название предложения:</label>
-                <input type="text" id="title" name="title" class="form-input" required>
+                <input type="text" id="title" name="title" class="form-control" required>
             </div>
-            <div class="form-group">
+
+            <div class="mb-3">
                 <label for="description" class="form-label">Описание:</label>
-                <textarea id="description" name="description" class="form-input" required></textarea>
+                <textarea id="description" name="description" class="form-control" rows="4" required></textarea>
             </div>
-            <div class="form-group">
+
+            <div class="mb-3">
                 <label for="price" class="form-label">Цена:</label>
-                <input type="number" id="price" name="price" class="form-input" step="0.01" required>
+                <input type="number" id="price" name="price" class="form-control" step="0.01" required>
             </div>
-            <div class="form-group">
-                <button type="submit" class="submit-btn">Создать предложение</button>
+
+            <div class="mb-3">
+                <label for="category" class="form-label">Категория:</label>
+                <select id="category" name="category" class="form-select" required>
+                    <option value="">Выберите категорию</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
             </div>
+
+            <div class="mb-4">
+                <label for="subtopic" class="form-label">Подкатегория:</label>
+                <select id="subtopic" name="subtopic" class="form-select" required disabled>
+                    <option value="">Сначала выберите категорию</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Создать предложение</button>
         </form>
-        <a href="{{ url_for('home') }}" class="back-link">Назад на главную</a>
+
+        <div class="text-center mt-3">
+            <a href="{{ url_for('home') }}" class="text-decoration-none">← Назад на главную</a>
+        </div>
     </div>
+</div>
+
+<script>
+// Данные для категорий и подкатегорий
+const categories = {
+    {% for category, subtopics in categories.items() %}
+    '{{ category }}': [{% for subtopic in subtopics %}'{{ subtopic }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+    {% endfor %}
+};
+
+// Обработчик изменения категории
+document.getElementById('category').addEventListener('change', function() {
+    const subtopicSelect = document.getElementById('subtopic');
+    subtopicSelect.innerHTML = '<option value="">Выберите подкатегорию</option>';
+    subtopicSelect.disabled = !this.value;
+
+    if (this.value) {
+        const subtopics = categories[this.value] || [];
+        subtopics.forEach(function(subtopic) {
+            const option = document.createElement('option');
+            option.value = subtopic;
+            option.textContent = subtopic;
+            subtopicSelect.appendChild(option);
+        });
+    }
+});
+</script>
+
 {% endblock %}

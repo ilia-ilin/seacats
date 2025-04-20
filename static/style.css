@@ -1,540 +1,223 @@
+/* Базовые стили */
 body {
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2f1eb; /* Теплый светло-бежевый фон */
+    color: #4a4a4a; /* Темный серый текст для хорошей читаемости */
 }
 
-.header {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-.header-buttons a {
-    color: white;
-    margin: 0 10px;
+a {
+    color: inherit;
     text-decoration: none;
 }
 
+.header {
+    background-color: #8e7b6f; /* Теплый серо-бежевый */
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.header-buttons a {
+    margin-left: 1rem;
+    color: white;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.header-buttons a:hover {
+    opacity: 0.8;
+}
+
+/* Контейнер содержимого */
 .content {
-    padding: 20px;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Страница темы */
+.tema-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #3e3e3e; /* Темный серый для заголовков */
+}
+
+.subcategory-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.subcategory-tab {
+    padding: 0.5rem 1.2rem;
+    background-color: #dcd3c2; /* Теплый песочный оттенок */
+    border-radius: 25px;
+    color: #3e3e3e;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.subcategory-tab:hover {
+    background-color: #b7a18b; /* Немного темнее для эффекта наведения */
+}
+
+.subcategory-tab.active {
+    background-color: #8e7b6f; /* Более темный оттенок для активного состояния */
+    color: white;
+}
+
+.subcategory-tab .count {
+    margin-left: 0.5rem;
+    font-weight: bold;
+}
+
+/* Сетка предложений */
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
 }
 
 .offer-card {
     background-color: white;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-.product-title {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.description {
-    font-size: 14px;
-    color: #555;
-}
-
-.price {
-    color: #FF3D00;
-    font-weight: bold;
-}
-
-.seller-profile {
-    margin-top: 10px;
-    display: inline-block;
-    text-align: center;
-}
-
-.profile-circle {
-    background-color: #ccc;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 18px;
-    color: white;
-    margin-bottom: 5px;
-}
-
-.messages {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.message {
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f4f4f9;
-    width: 70%;
-}
-
-.message-sent {
-    align-self: flex-end;
-    background-color: #e0f7fa;
-}
-
-.message-received {
-    align-self: flex-start;
-    background-color: #f1f1f1;
-}
-
-textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-top: 10px;
-}
-
-button {
-    padding: 10px 15px;
-    background-color: #FF3D00;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-/* Общие стили для страницы предложения */
-.offer-page-container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-}
-
-.offer-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.offer-details {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    font-size: 18px;
-}
-
-.offer-description, .offer-price, .offer-seller {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.offer-description h2, .offer-price h2, .offer-seller h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #FF6F00;
-}
-
-.offer-price p, .offer-seller p {
-    font-size: 20px;
-    color: #333;
-}
-
-.seller-link {
-    font-weight: bold;
-    color: #FF6F00;
-    text-decoration: none;
-}
-
-.seller-link:hover {
-    text-decoration: underline;
-}
-
-.offer-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.btn {
-    padding: 12px 20px;
-    font-size: 18px;
-    text-align: center;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-    color: white;
-}
-
-.chat-btn {
-    background-color: #FF6F00;
-}
-
-.chat-btn:hover {
-    background-color: #e65c00;
-}
-
-.buy-btn {
-    background-color: #4CAF50;
-}
-
-.buy-btn:hover {
-    background-color: #45a049;
-}
-/* Стили для профиля */
-.profile-container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-}
-
-h1, h2 {
-    color: #333;
-}
-
-.offers {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-around;
-}
-
-.offer-card {
-    width: 45%;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .offer-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
-.offer-content {
-    text-decoration: none;
-    color: #333;
+.offer-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
 }
 
-.product-title {
-    font-size: 20px;
+.offer-card .description {
+    font-size: 0.95rem;
+    color: #6b6b6b; /* Бледно-серый для описания */
+    margin-bottom: 0.75rem;
+}
+
+.offer-card .price {
     font-weight: bold;
-    margin-bottom: 10px;
+    color: #a66c33; /* Теплый коричневый для цены */
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
 }
 
-.description {
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.price {
-    font-size: 16px;
-    color: #FF6F00;
-    font-weight: bold;
-}
-
-/* Добавьте в static/style.css */
-.create-offer-btn {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-.create-offer-btn:hover {
-    background-color: #45a049;
-}
-
-/* Основной стиль для страницы создания предложения */
-.create-offer-container {
-    width: 50%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fefaf5;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.create-offer-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 30px;
-}
-
-.offer-form {
+.offer-card .seller {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
     align-items: center;
-}
-
-.form-group {
-    width: 100%;
-    max-width: 400px;
-    text-align: left;
-}
-
-.form-label {
-    font-size: 16px;
+    gap: 0.5rem;
     color: #555;
-    margin-bottom: 5px;
 }
 
-.form-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    box-sizing: border-box;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: #FF6F00;
-    background-color: #fff;
-}
-
-.submit-btn {
-    width: 100%;
-    max-width: 400px;
-    padding: 12px;
-    font-size: 16px;
-    background-color: #FF6F00;
+.offer-card .avatar {
+    width: 28px;
+    height: 28px;
+    background-color: #8e7b6f;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Пустое сообщение */
+.empty-message {
+    text-align: center;
+    color: #888;
+    font-size: 1.1rem;
+    padding: 2rem 0;
+}
+
+.main-topic {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #8e7b6f;
+}
+
+.subtopics-line {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.subtopic {
+    text-decoration: none;
+    color: #4a4a4a;
+    background-color: #f5f5f0; /* Светлый оттенок для подкатегорий */
+    padding: 5px 10px;
+    border-radius: 0.5rem;
     transition: background-color 0.3s ease;
 }
 
-.submit-btn:hover {
-    background-color: #ff8c1a;
+.subtopic:hover {
+    background-color: #e0d9c6; /* Легкое затемнение при наведении */
 }
 
-.back-link {
-    display: inline-block;
-    margin-top: 20px;
-    font-size: 16px;
-    color: #FF6F00;
-    text-decoration: none;
-    transition: color 0.3s ease;
+.topic-section {
+    padding: 1rem;
+    border: 1px solid #e0d9c6; /* Светлая линия для разделов */
+    border-radius: 0.75rem;
+    background-color: #ffffff;
 }
 
-.back-link:hover {
-    color: #e65c00;
-}
-
-/* Основной контейнер страницы предложения */
-.offer-page-container {
-    width: 70%;
-    margin: 50px auto;
+.payment-box {
+    background: white;
     padding: 30px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.offer-title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.offer-details {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.offer-description,
-.offer-price,
-.offer-seller {
-    text-align: left;
-    padding: 20px;
-    border-bottom: 1px solid #eee;
-}
-
-.offer-description h2,
-.offer-price h2,
-.offer-seller h2 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.offer-description p,
-.offer-price p,
-.offer-seller p {
-    font-size: 16px;
-    color: #555;
-}
-
-.seller-link {
-    color: #FF6F00;
-    text-decoration: none;
-}
-
-.seller-link:hover {
-    text-decoration: underline;
-}
-
-/* Кнопки */
-.offer-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-}
-
-.btn {
-    display: inline-block;
-    padding: 12px 25px;
-    font-size: 18px;
-    text-align: center;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    text-decoration: none;
-}
-
-.chat-btn {
-    background-color: #FF6F00;
-    color: white;
-}
-
-.chat-btn:hover {
-    background-color: #e65c00;
-    transform: scale(1.05);
-}
-
-.buy-btn {
-    background-color: #28a745;
-    color: white;
-}
-
-.buy-btn:hover {
-    background-color: #218838;
-    transform: scale(1.05);
-}
-
-/* Общий стиль для страницы предложения */
-.offer-page-container {
-    width: 80%;
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #f9f9f9;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Заголовок предложения */
-.offer-header {
-    text-align: center;
-    margin-bottom: 30px;
+/* Стили для формы создания предложения */
+.create-offer-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.offer-title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+.form-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
 }
 
-.offer-price {
-    font-size: 24px;
-    font-weight: 600;
-    color: #FF6F00;
-    margin-top: 5px;
-}
-
-/* Основной контент предложения */
-.offer-main-content {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-}
-
-/* Описание предложения */
-.offer-description {
-    width: 60%;
-}
-
-.offer-description h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+.form-control, .form-select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
     margin-bottom: 15px;
 }
 
-.offer-description p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #555;
-    text-align: justify;
+.btn-primary {
+    background-color: #b08c5f; /* Теплый коричневатый оттенок */
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-/* Информация о продавце */
-.offer-seller {
-    width: 35%;
-    padding-left: 20px;
-    border-left: 2px solid #ddd;
+.btn-primary:hover {
+    background-color: #9b7c4d; /* Немного темнее для наведения */
 }
-
-.offer-seller h3 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.offer-seller p {
-    font-size: 16px;
-    color: #555;
-}
-
-.seller-link {
-    color: #FF6F00;
-    text-decoration: none;
-}
-
-.seller-link:hover {
-    text-decoration: underline;
-}
-
-/* Кнопки */
-.offer-actions {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.btn {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size:
-

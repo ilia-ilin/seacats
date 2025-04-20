@@ -1,29 +1,30 @@
-<!-- templates/profile.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="profile-container">
-        <h1>Профиль пользователя {{ user.username }}</h1>
-        <h2>Мои предложения</h2>
+<div class="profile-container">
+    <h1>Профиль пользователя {{ user.username }}</h1>
+    <h2>Мои предложения</h2>
 
-        <div>
-            <a href="{{ url_for('create_offer') }}" class="create-offer-btn">Создать новое объявление</a>
-        </div>
-
-        {% if offers %}
-            <div class="offers">
-                {% for offer in offers %}
-                    <div class="offer-card">
-                        <a href="{{ url_for('offer', offer_id=offer.id) }}" class="offer-content">
-                            <div class="product-title">{{ offer.title }}</div>
-                            <div class="description">{{ offer.description }}</div>
-                            <div class="price">₽ {{ offer.price }}</div>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>У вас еще нет предложений.</p>
-        {% endif %}
+    <div class="mb-4">
+        <a href="{{ url_for('create_offer') }}" class="btn btn-primary create-offer-btn">Создать новое предложение</a>
     </div>
+
+    {% if offers %}
+    <div class="offers">
+        {% for offer in offers %}
+        <div class="offer-card card shadow-sm mb-4">
+            <a href="{{ url_for('offer', offer_id=offer.id) }}" class="offer-content text-decoration-none">
+                <div class="card-body">
+                    <h5 class="card-title">{{ offer.title }}</h5>
+                    <p class="card-text">{{ offer.description }}</p>
+                    <div class="price">₽ {{ offer.price }}</div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>У вас еще нет предложений.</p>
+    {% endif %}
+</div>
 {% endblock %}

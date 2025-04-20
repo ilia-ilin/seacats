@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Регистрация</h1>
-    <form method="POST">
-        <label for="username">Имя пользователя</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Пароль</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Зарегистрироваться</button>
-    </form>
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-header bg-primary text-white rounded-top-4">
+            <h5 class="mb-0">Регистрация</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Имя пользователя</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
