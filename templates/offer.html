@@ -6,35 +6,50 @@
     <div class="row">
         <!-- Левая часть (описание предложения) -->
         <div class="col-lg-7 col-md-8 col-sm-12">
-            <h2 class="mb-3">{{ offer.title }}</h2>
-            <h5 class="text-muted">Описание</h5>
-            <p>{{ offer.description }}</p>
+            <div class="text-center">
+                <h2 class="mb-3">{{ offer.title }}</h2>
+                <h5 class="text-muted">Описание</h5>
+                <p>{{ offer.description }}</p>
 
-            <div class="d-flex align-items-center gap-3 mt-3">
-                <span class="fs-5 fw-semibold text-success">₽ {{ offer.price }}</span>
-                <a href="{{ url_for('checkout', offer_id=offer.id) }}" class="btn btn-sm btn-primary">Купить</a>
+                <div class="d-flex justify-content-center gap-3 mt-3">
+                    <span class="fs-5 fw-semibold text-success">₽ {{ offer.price }}</span>
+
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.id == offer.seller.id %}
+                            <a href="{{ url_for('edit_offer', offer_id=offer.id) }}" class="btn btn-sm btn-warning">Редактировать</a>
+                        {% else %}
+                            <a href="{{ url_for('checkout', offer_id=offer.id) }}" class="btn btn-sm btn-primary">Купить</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-sm btn-primary">Войти, чтобы купить</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
 
         <!-- Правая часть (чат с продавцом) -->
         <div class="col-lg-4 col-md-4 col-sm-12 mt-4 mt-md-0">
             {% if offer.seller %}
-            <div class="card shadow-sm">
-                <div class="card-header bg-light fw-bold">
-                    <a href="{{ url_for('profile', user_id=offer.seller.id) }}" class="text-decoration-none">
-                        {{ offer.seller.username }}
-                    </a>
+                {% if current_user.is_authenticated and current_user.id != offer.seller.id %}
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light fw-bold">
+                        <a href="{{ url_for('profile', user_id=offer.seller.id) }}" class="text-decoration-none">
+                            {{ offer.seller.username }}
+                        </a>
+                    </div>
+                    <div class="card-body" style="height: 200px; overflow-y: auto;">
+                        <p class="text-muted">Чат с продавцом...</p>
+                    </div>
+                    <div class="card-footer d-flex">
+                        <input type="text" class="form-control form-control-sm me-2" placeholder="Введите сообщение...">
+                        <button class="btn btn-sm btn-outline-secondary">Отправить</button>
+                    </div>
                 </div>
-                <div class="card-body" style="height: 200px; overflow-y: auto;">
-                    <p class="text-muted">Чат с продавцом...</p>
-                </div>
-                <div class="card-footer d-flex">
-                    <input type="text" class="form-control form-control-sm me-2" placeholder="Введите сообщение...">
-                    <button class="btn btn-sm btn-outline-secondary">Отправить</button>
-                </div>
-            </div>
+                {% elif not current_user.is_authenticated %}
+                    <p><a href="{{ url_for('login') }}">Войдите</a>, чтобы начать чат с продавцом.</p>
+                {% endif %}
             {% else %}
-            <p>Продавец не найден</p>
+                <p>Продавец не найден</p>
             {% endif %}
         </div>
     </div>

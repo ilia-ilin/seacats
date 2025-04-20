@@ -387,3 +387,31 @@ footer {
     box-sizing: border-box;
     margin-top: 30px;
 }
+
+/* Сделаем селектор более специфичным */
+.offer-card .btn-detail {
+    background-color: #b08c5f;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.offer-card .btn-detail:hover {
+    background-color: #8e7b6f; /* Цвет при наведении */
+    opacity: 0.8;
+}
+
+.card .card-header {
+    background-color: #b08c5f !important;
+    color: white !important;
+}
+
+.card .card-header h5 {
+    font-size: 1.25rem !important;
+    font-weight: bold !important;
+}

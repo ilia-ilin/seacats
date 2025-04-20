@@ -7,6 +7,19 @@
             <h5 class="mb-0">Регистрация</h5>
         </div>
         <div class="card-body">
+            <!-- Выводим сообщения об ошибках здесь, перед формой -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for category, message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endwith %}
+
             <form method="POST">
                 <div class="mb-3">
                     <label for="username" class="form-label">Имя пользователя</label>

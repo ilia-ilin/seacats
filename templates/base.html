@@ -13,8 +13,8 @@
         <div class="header-buttons">
             <a href="{{ url_for('home') }}">Главная</a>
             <a href="{{ url_for('messages') }}" class="nav-link">Сообщения</a>
-            {% if 'username' in session %}
-                <a href="{{ url_for('profile') }}">Профиль</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile') }}">Мой профиль</a> <!-- Ссылка на профиль текущего пользователя -->
                 <a href="{{ url_for('logout') }}">Выход</a>
             {% else %}
                 <a href="{{ url_for('login') }}">Вход</a>

@@ -4,23 +4,48 @@
 <div class="profile-container">
     <h1>Профиль пользователя: {{ user.username }}</h1>
 
-    <!-- Кнопка для создания предложения -->
+    <!-- Показываем кнопку только для текущего пользователя -->
+    {% if user == current_user %}
     <div class="create-offer-button">
         <a href="{{ url_for('create_offer') }}" class="btn btn-primary">Создать предложение</a>
     </div>
+    {% endif %}
 
-    <h2>Мои предложения</h2>
+    <!-- Условие для отображения заголовка -->
+    <h2>
+        {% if user == current_user %}
+            Мои предложения
+        {% else %}
+            Предложения {{ user.username }}
+        {% endif %}
+    </h2>
 
-    <!-- Здесь будут ваши предложения -->
     <div class="offers-list">
         {% for offer in offers %}
         <div class="offer-card">
             <h3>{{ offer.title }}</h3>
             <p>{{ offer.description }}</p>
             <p>Цена: {{ offer.price }} руб.</p>
-            <a href="{{ url_for('offer', offer_id=offer.id) }}" class="btn btn-secondary">Подробнее</a>
+            <a href="{{ url_for('offer', offer_id=offer.id) }}" class="btn btn-detail">Подробнее</a>
         </div>
         {% endfor %}
     </div>
+
+    <!-- Раздел с отзывами о продавце -->
+    <h2>Отзывы о пользователе</h2>
+    {% if reviews %}
+    <div class="reviews-list">
+        {% for review in reviews %}
+        <div class="review-card">
+            <p><strong>Оценка: {{ review.rating }} / 5</strong></p>
+            <p>{{ review.text }}</p>
+            <p><small>От: {{ review.reviewer.username }}</small></p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Отзывов еще нет.</p>
+    {% endif %}
+
 </div>
 {% endblock %}
