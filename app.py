@@ -3,11 +3,10 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager
-from datetime import datetime, timedelta
 
 # Инициализация приложения Flask
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  
+app.secret_key = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///study_help.db'
 
 # Инициализация базы данных
@@ -81,23 +80,6 @@ class Review(db.Model):
 
     user = db.relationship('User', foreign_keys=[user_id], backref='reviews_received')
     reviewer = db.relationship('User', foreign_keys=[reviewer_id], backref='reviews_given')
-
-
-class Order(db.Model):
-    """Модель заказа."""
-    id = db.Column(db.Integer, primary_key=True)
-    offer_id = db.Column(db.Integer, db.ForeignKey('offer.id'), nullable=False)
-    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    timestamp = db.Column(db.DateTime, server_default=db.func.now())
-    status = db.Column(db.String(20), default='pending')  # Статус заказа: 'pending', 'completed', 'expired'
-
-    offer = db.relationship('Offer', backref='orders')
-    seller = db.relationship('User', foreign_keys=[seller_id])
-    buyer = db.relationship('User', foreign_keys=[buyer_id])
-
-    def __repr__(self):
-        return f'<Order {self.id}, {self.offer.title}, {self.buyer.username}>'
 
 
 # Вспомогательные функции
@@ -295,15 +277,7 @@ def orders():
         return redirect(url_for('login'))
 
     # Получаем все заказы текущего пользователя
-    orders = Order.query.filter(
-        (Order.buyer_id == current_user.id) | (Order.seller_id == current_user.id)
-    ).all()
-
-    # Добавим логику для отображения времени для оплаты
-    for order in orders:
-        order_time = order.timestamp
-        expiration_time = order_time + timedelta(minutes=30)  # Таймер 30 минут
-        order.expiration_time = expiration_time
+    orders = Order.query.filter((Order.buyer_id == current_user.id) | (Order.seller_id == current_user.id)).all()
 
     return render_template('orders.html', orders=orders)
 
@@ -338,6 +312,7 @@ def offer(offer_id):
     return render_template('offer.html', offer=offer, messages=messages)
 
 
+
 @app.route('/edit_offer/<int:offer_id>', methods=['GET', 'POST'])
 def edit_offer(offer_id):
     offer = Offer.query.get_or_404(offer_id)
@@ -365,16 +340,10 @@ def checkout(offer_id):
     offer = Offer.query.get_or_404(offer_id)
 
     if request.method == 'POST':
-        # Логика для оплаты
-        order = Order.query.filter_by(offer_id=offer.id, buyer_id=current_user.id, status='pending').first()
-        if order:
-            order.status = 'completed'  # Обновляем статус заказа
-            db.session.commit()
-            flash('Покупка успешно оформлена!', 'success')
+        flash('Покупка успешно оформлена!', 'success')
         return redirect(url_for('home'))  # или на страницу профиля
 
     return render_template('checkout.html', offer=offer)
-
 
 
 @app.route('/message/<int:receiver_id>/<int:offer_id>', methods=['GET', 'POST'])
