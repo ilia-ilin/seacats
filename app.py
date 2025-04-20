@@ -310,6 +310,7 @@ def orders():
 
 @app.route('/offer/<int:offer_id>', methods=['GET', 'POST'])
 def offer(offer_id):
+    """Просмотр конкретного предложения и чата с продавцом."""
     offer = Offer.query.get_or_404(offer_id)
 
     if request.method == 'POST':
@@ -324,19 +325,17 @@ def offer(offer_id):
         db.session.add(new_message)
         db.session.commit()
 
-        # Создаем новый заказ
-        order = Order(
-            offer_id=offer.id,
-            seller_id=offer.seller.id,
-            buyer_id=current_user.id
-        )
-        db.session.add(order)
-        db.session.commit()
-
         return redirect(url_for('offer', offer_id=offer.id))
 
-    return render_template('offer.html', offer=offer)
+    if current_user.is_authenticated:
+        messages = Message.query.filter(
+            Message.offer_id == offer_id,
+            (Message.sender_id == current_user.id) | (Message.receiver_id == current_user.id)
+        ).order_by(Message.timestamp).all()
+    else:
+        messages = []
 
+    return render_template('offer.html', offer=offer, messages=messages)
 
 
 @app.route('/edit_offer/<int:offer_id>', methods=['GET', 'POST'])

@@ -8,19 +8,8 @@ services:
       - "5000:5000"
     volumes:
       - .:/app
+      - ./instance:/app/instance
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=development
-    depends_on:
-      - db
     command: flask run --host=0.0.0.0
-
-  db:
-    image: nouchka/sqlite3:latest
-    container_name: sqlite-db
-    volumes:
-      - ./study_help.db:/app/study_help.db
-
-networks:
-  default:
-    driver: bridge
